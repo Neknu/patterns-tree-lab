@@ -9,7 +9,7 @@ template<typename T>
 class BplusTree : public Tree<T> {
 public:
     BplusTree();
-    ~BplusTree();
+    ~BplusTree() override;
 
     void insert(const T& key) override;
     void remove(const T& key) override;
@@ -20,8 +20,8 @@ public:
 private:
     class BplusNode :public Node {
     public:
-        BplusNode(const T& key);
-        ~BplusNode();
+        BplusNode(const T& key):data(key) {}
+        ~BplusNode() {}
     private:
         T data;
     };

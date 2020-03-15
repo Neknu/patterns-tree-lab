@@ -10,7 +10,7 @@ template<typename T>
 class SplayTree : public Tree<T> {
 public:
     SplayTree();
-    ~SplayTree();
+    ~SplayTree() override;
 
     void insert(const T& key) override;
     void remove(const T& key) override;
@@ -21,8 +21,8 @@ public:
 private:
     class SplayNode :public Node {
     public:
-        SplayNode(const T& key);
-        ~SplayNode();
+        SplayNode(const T& key):data(key) {}
+        ~SplayNode() {}
     private:
         T data;
         SplayNode* parent;

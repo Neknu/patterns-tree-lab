@@ -15,7 +15,7 @@ public:
     virtual bool find(const T& key) const = 0;
     
     virtual void print() = 0;
-};
 
-#include "Tree.tpp"
+    virtual ~Tree() = 0;
+};
 
