@@ -8,8 +8,24 @@
 template<typename T>
 class BTree : public Tree<T> {
 public:
+    BTree();
+    ~BTree();
+
+    void insert(const T& key) override;
+    void remove(const T& key) override;
+    bool find(const T& key) const override;
+
+    void print() override;
 
 private:
-
+    class BNode :public Node {
+    public:
+        BNode(const T& key);
+        ~BNode();
+    private:
+        T data;
+    };
 };
+
+#include "BTree.tpp"
 
