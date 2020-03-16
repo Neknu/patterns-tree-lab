@@ -6,14 +6,14 @@ template<typename T>
 class IterationPolicy;
 
 
-
 template<typename T>
 class BaseIterator {
+
 /**
  *
  * Base class-interface for iterators
  *
- * Allows us to write specific iterators for trees,
+ * @brief: Allows us to write specific iterators for trees,
  * and define iterating behaviour with IterationPolicy
  * (Mix of Bridge and Strategy Patterns)
  *
@@ -44,7 +44,7 @@ class IterationPolicy{
     /**
      *
      * Base class for iteration policies
-     * Defines behaviour of iterator using IterationPolicy::next(node)
+     * @brief: Defines behaviour of iterator using IterationPolicy::next(node)
      *
      * */
 public:
@@ -58,7 +58,7 @@ class ForwardIteration : public IterationPolicy<T>{
     /**
      *
      * Extends IterationPolicy
-     * Allows us to iterate on tree in forward order
+     * @brief: Allows us to iterate on tree in forward order
      *
      * */
 public:
@@ -72,7 +72,7 @@ class ReverseIteration : public IterationPolicy<T>{
     /**
      *
      * Extends IterationPolicy
-     * Allows us to iterate on tree in reverse order
+     * @brief: Allows us to iterate on tree in reverse order
      *
      * */
 public:

@@ -8,6 +8,10 @@ BaseIterator<T>::BaseIterator(
 
 template<typename T>
 BaseIterator<T>& BaseIterator<T>::operator++() noexcept {
+    if (curr_node == nullptr){
+        return nullptr;
+    }
+
     curr_node = policy.next(curr_node);
     return *this;
 }
@@ -16,6 +20,9 @@ BaseIterator<T>& BaseIterator<T>::operator++() noexcept {
 template<typename T>
 BaseIterator<T>& BaseIterator<T>::operator+(int n) noexcept {
     for (int i = 0; i < n; ++i){
+        if (curr_node == nullptr){
+            return nullptr;
+        }
         curr_node = policy.next(curr_node);
     }
     return *this;
