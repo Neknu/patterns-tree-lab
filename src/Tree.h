@@ -6,7 +6,14 @@
 template<typename T>
 class Tree {
 protected:
-    class Node;
+    class Node{
+    public:
+        virtual Node* next() const noexcept = 0;
+        virtual Node* previous() const noexcept = 0;
+    protected:
+        T data;
+    };
+
     Node* root;
 
 public:
@@ -15,18 +22,6 @@ public:
     virtual bool find(const T& key) const = 0;
 
     virtual void print() = 0;
-
-    class BaseNode{
-    public:
-        virtual BaseNode* next() const noexcept = 0;
-        virtual BaseNode* previous() const noexcept = 0;
-
-    protected:
-        T data;
-    };
-
-protected:
-    BaseNode* root;
 };
 
 
