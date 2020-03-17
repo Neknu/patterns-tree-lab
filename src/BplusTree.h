@@ -18,14 +18,12 @@ public:
     void print() override;
 
 private:
-    class BplusNode :public Node {
-    public:
-        BplusNode(const T& key):data(key) {}
-        ~BplusNode() {}
-    private:
-        T data;
-    };
-};
-
+    class BplusNode : public Tree<T>::Node {
+        public:
+            BplusNode(const T& key):data(key) {}
+            ~BplusNode() {}
+        private:
+            T data;
+        };
 };
 
