@@ -1,8 +1,0 @@
-//
-// Created by oleksii on 17.03.20.
-//
-
-#ifndef LAB_SPLAYTREEITERATOR_HPP
-#define LAB_SPLAYTREEITERATOR_HPP
-
-#endif //LAB_SPLAYTREEITERATOR_HPP

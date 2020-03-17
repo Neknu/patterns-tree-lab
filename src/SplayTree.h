@@ -2,21 +2,26 @@
 
 
 #include "Tree.h"
+#include "SplayTreeIterator.hpp"
 
 /**
 * @brief Class for implementing Splay Tree
 */
 template<typename T>
 class SplayTree : public Tree<T> {
+private:
+    class SplayNode;
 public:
-    SplayTree() = default;
+    SplayTree();
     ~SplayTree();
 
     void insert(const T& key) override;
     void remove(const T& key) noexcept override;
-    bool find(const T& key) const noexcept override;
+    BaseIterator<T> find(const T& key) const noexcept override;
 
     void print() const noexcept override;
+
+    static void printNode(SplayNode*) noexcept;
 
 private:
     class SplayNode : public Tree<T>::Node {
@@ -28,8 +33,7 @@ private:
             typename Tree<T>::Node* next() const noexcept override;
             typename Tree<T>::Node* previous() const noexcept override;
 
-        private:
-            T data;
+
             SplayNode* parent;
             SplayNode* left;
             SplayNode* right;

@@ -1,41 +1,9 @@
 #pragma once
 
-#include "Tree.h"
+#include <memory>
 
 template<typename T>
-class IterationPolicy;
-
-
-template<typename T>
-class BaseIterator {
-
-/**
- *
- * Base class-interface for iterators
- *
- * @brief: Allows us to write specific iterators for trees,
- * and define iterating behaviour with IterationPolicy
- * (Mix of Bridge and Strategy Patterns)
- *
- * */
-
-public:
-    BaseIterator(typename Tree<T>::BaseNode* root, const IterationPolicy<T>& policy);
-
-    virtual const T& operator*() noexcept = 0;
-
-    virtual bool operator!=(const BaseIterator &other) noexcept = 0;
-
-    virtual bool operator==(const BaseIterator &other) noexcept = 0;
-
-    BaseIterator &operator++() noexcept;
-
-    BaseIterator &operator+(int n) noexcept;
-
-private:
-    typename Tree<T>::BaseNode* curr_node;
-    const IterationPolicy<T>& policy;
-};
+class Tree;
 
 
 
@@ -48,7 +16,7 @@ class IterationPolicy{
      *
      * */
 public:
-    virtual BaseIterator<T>& next(typename Tree<T>::BaseNode* node) noexcept = 0;
+    virtual typename Tree<T>::Node* next(typename Tree<T>::Node* node) const noexcept = 0;
 };
 
 
@@ -62,7 +30,7 @@ class ForwardIteration : public IterationPolicy<T>{
      *
      * */
 public:
-    BaseIterator<T>& next(typename Tree<T>::BaseNode* node) override;
+    typename Tree<T>::Node* next(typename Tree<T>::Node* node) const noexcept override;
 };
 
 
@@ -76,7 +44,42 @@ class ReverseIteration : public IterationPolicy<T>{
      *
      * */
 public:
-    BaseIterator<T>& next(typename Tree<T>::BaseNode* node) override;
+    typename Tree<T>::Node* next(typename Tree<T>::Node* node) const noexcept override;
+};
+
+
+
+
+template<typename T>
+class BaseIterator {
+/**
+ *
+ * Base class-interface for iterators
+ *
+ * @brief: Allows us to write specific iterators for trees,
+ * and define iterating behaviour with IterationPolicy
+ * (Mix of Bridge and Strategy Patterns)
+ *
+ * */
+
+public:
+    friend class Tree<T>;
+
+    BaseIterator(typename Tree<T>::Node* root, std::shared_ptr<IterationPolicy<T>> policy);
+
+    virtual const T& operator*() const noexcept;
+
+    virtual bool operator!=(const BaseIterator &other) noexcept;
+
+    virtual bool operator==(const BaseIterator &other) noexcept;
+
+    BaseIterator& operator++() noexcept;
+
+    BaseIterator operator+(int n) const noexcept;
+
+protected:
+    typename Tree<T>::Node* curr_node;
+    std::shared_ptr<IterationPolicy<T>> policy;
 };
 
 
