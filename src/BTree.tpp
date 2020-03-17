@@ -2,10 +2,11 @@
 #include "Tree.h"
 
 template<typename T>
-BTree<T>::BTree() :root(nullptr) {
+BTree<T>::BTree() : Tree<T>::root(nullptr) {
 }
 
 template<typename T>
 BTree<T>::~BTree() {
+    delete Tree<T>::root;
 }
 
