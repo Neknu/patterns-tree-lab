@@ -1,7 +1,7 @@
 # patter-tree-lab
 Group project on trees using patterns (K-28)
 
-###subgroup:
+### subgroup:
 - `Oleksii`
 - `Sonik`
 - `Daniel`
