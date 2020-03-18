@@ -26,13 +26,55 @@ public:
 };
 
 
-template<typename T>
+template<typename T, typename TreeType>
 class BalancedTreeContext{
 public:
-    explicit BalancedTreeContext(const Tree<T>& tree);
+    explicit BalancedTreeContext(std::shared_ptr<TreeType> tree);
 
     /*
      * Тут потім будуть методи для взаємодії з деревом, але зараз це не важливо
      * */
+
+    void insert(const T& key);
+    void remove(const T& key) noexcept;
+    void print() const noexcept;
+
+    auto find(const T& key);
+
+
+private:
+    std::shared_ptr<TreeType> tree;
 };
+
+
+
+template<typename T, typename TreeType>
+BalancedTreeContext<T, TreeType>::BalancedTreeContext(std::shared_ptr<TreeType> tree) : tree(tree){
+
+}
+
+
+
+template<typename T, typename TreeType>
+void BalancedTreeContext<T, TreeType>::insert(const T &key) {
+    tree->insert(key);
+}
+
+
+
+template<typename T, typename TreeType>
+void BalancedTreeContext<T, TreeType>::remove(const T &key) noexcept {
+    tree->remove(key);
+}
+
+template<typename T, typename TreeType>
+void BalancedTreeContext<T, TreeType>::print() const noexcept {
+    tree->print();
+}
+
+template<typename T, typename TreeType>
+auto BalancedTreeContext<T, TreeType>::find(const T &key) {
+
+    return tree->find(key);
+}
 
