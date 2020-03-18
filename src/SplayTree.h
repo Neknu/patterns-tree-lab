@@ -2,7 +2,7 @@
 
 
 #include "Tree.h"
-#include "SplayTreeIterator.hpp"
+
 
 /**
 * @brief Class for implementing Splay Tree
@@ -25,15 +25,14 @@ private:
         public:
 
             explicit SplayNode(const T& key);
-            ~SplayNode();
 
-            typename Tree<T>::Node* next() const noexcept override;
-            typename Tree<T>::Node* previous() const noexcept override;
+            std::shared_ptr<typename Tree<T>::Node> next() const noexcept override;
+            std::shared_ptr<typename Tree<T>::Node> previous() const noexcept override;
 
 
-            SplayNode* parent;
-            SplayNode* left;
-            SplayNode* right;
+            std::shared_ptr<SplayNode> parent;
+            std::shared_ptr<SplayNode> left;
+            std::shared_ptr<SplayNode> right;
 
             [[nodiscard]] bool isLeftSon() const noexcept;
             [[nodiscard]] bool isRightSon() const noexcept;

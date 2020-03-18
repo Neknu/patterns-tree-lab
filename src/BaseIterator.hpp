@@ -16,7 +16,7 @@ class IterationPolicy{
      *
      * */
 public:
-    virtual typename Tree<T>::Node* next(typename Tree<T>::Node* node) const noexcept = 0;
+    virtual std::shared_ptr<typename Tree<T>::Node> next(std::shared_ptr<typename Tree<T>::Node> node) const noexcept = 0;
 };
 
 
@@ -30,7 +30,7 @@ class ForwardIteration : public IterationPolicy<T>{
      *
      * */
 public:
-    typename Tree<T>::Node* next(typename Tree<T>::Node* node) const noexcept override;
+    std::shared_ptr<typename Tree<T>::Node> next(std::shared_ptr<typename Tree<T>::Node> node) const noexcept override;
 };
 
 
@@ -44,7 +44,7 @@ class ReverseIteration : public IterationPolicy<T>{
      *
      * */
 public:
-    typename Tree<T>::Node* next(typename Tree<T>::Node* node) const noexcept override;
+    std::shared_ptr<typename Tree<T>::Node> next(std::shared_ptr<typename Tree<T>::Node> node) const noexcept override;
 };
 
 
@@ -65,7 +65,7 @@ class BaseIterator {
 public:
     friend class Tree<T>;
 
-    BaseIterator(typename Tree<T>::Node* root, std::shared_ptr<IterationPolicy<T>> policy);
+    BaseIterator(std::shared_ptr<typename Tree<T>::Node> root, std::shared_ptr<IterationPolicy<T>> policy);
 
     virtual const T& operator*() const noexcept;
 
@@ -78,7 +78,7 @@ public:
     BaseIterator operator+(int n) const noexcept;
 
 protected:
-    typename Tree<T>::Node* curr_node;
+    std::shared_ptr<typename Tree<T>::Node> curr_node;
     std::shared_ptr<IterationPolicy<T>> policy;
 };
 

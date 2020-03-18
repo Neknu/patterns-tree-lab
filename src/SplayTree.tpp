@@ -7,18 +7,18 @@
 template<typename T>
 void SplayTree<T>::insert(const T &key) {
     if (Tree<T>::root == nullptr){
-        Tree<T>::root = new SplayNode(key);
+        Tree<T>::root = std::make_shared<SplayNode>(key);
         return;
     }
 
-    auto temp = dynamic_cast<SplayNode*>(Tree<T>::root);
+    auto temp = std::dynamic_pointer_cast<SplayNode>(Tree<T>::root);
 
     while(true){
         if (temp->data < key){
             if (temp->right){
                 temp = temp->right;
             } else {
-                temp->right = new SplayNode(key);
+                temp->right = std::make_shared<SplayNode>(key);
                 temp->right->parent = temp;
                 return;
             }
@@ -26,7 +26,7 @@ void SplayTree<T>::insert(const T &key) {
             if (temp->left){
                 temp = temp->left;
             } else {
-                temp->left = new SplayNode(key);
+                temp->left = std::make_shared<SplayNode>(key);
                 temp->left->parent = temp;
                 return;
             }
@@ -53,12 +53,12 @@ BaseIterator<T> SplayTree<T>::find(const T &key) const noexcept{
     }
 
 
-    SplayNode* temp = nullptr;
+    std::shared_ptr<SplayNode> temp = nullptr;
 
     if (Tree<T>::root->data > key){
-        temp = dynamic_cast<SplayNode*>(Tree<T>::root)->left;
+        temp = std::dynamic_pointer_cast<SplayNode>(Tree<T>::root)->left;
     } else {
-        temp = dynamic_cast<SplayNode*>(Tree<T>::root)->right;
+        temp = std::dynamic_pointer_cast<SplayNode>(Tree<T>::root)->right;
     }
 
 
@@ -97,16 +97,9 @@ SplayTree<T>::SplayNode::SplayNode(const T &key) : Tree<T>::Node(key), parent(nu
 
 
 
-template<typename T>
-SplayTree<T>::SplayNode::~SplayNode() {
-    delete left;
-    delete right;
-}
-
-
 
 template<typename T>
-typename Tree<T>::Node* SplayTree<T>::SplayNode::next() const noexcept {
+std::shared_ptr<typename Tree<T>::Node> SplayTree<T>::SplayNode::next() const noexcept {
     if (right) {
         auto temp = right;
         while (temp->left) {
@@ -139,7 +132,7 @@ typename Tree<T>::Node* SplayTree<T>::SplayNode::next() const noexcept {
 
 
 template<typename T>
-typename Tree<T>::Node *SplayTree<T>::SplayNode::previous() const noexcept {
+std::shared_ptr<typename Tree<T>::Node> SplayTree<T>::SplayNode::previous() const noexcept {
     if (left) {
         auto temp = left;
         while (temp->right) {
@@ -181,7 +174,7 @@ bool SplayTree<T>::SplayNode::isLeftSon() const noexcept {
         return false;
     }
 
-    return parent->left == this;
+    return parent->left->data == this->data;
 }
 
 
@@ -196,5 +189,5 @@ bool SplayTree<T>::SplayNode::isRightSon() const noexcept {
         return false;
     }
 
-    return parent->right == this;
+    return parent->right->data == this->data;
 }

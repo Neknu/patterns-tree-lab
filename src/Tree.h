@@ -2,6 +2,10 @@
 
 #include "BaseIterator.hpp"
 
+
+#include <memory>
+
+
 /**
 * @brief Class (interface) for all trees
 */
@@ -11,16 +15,14 @@ public:
     class Node{
     public:
         explicit Node(const T& key);
-        virtual Node* next() const noexcept = 0;
-        virtual Node* previous() const noexcept = 0;
-        virtual ~Node() = default;
+        virtual std::shared_ptr<Node> next() const noexcept = 0;
+        virtual std::shared_ptr<Node> previous() const noexcept = 0;
 
-    //protected:
         T data;
     };
 
 protected:
-    Node* root;
+    std::shared_ptr<Node> root;
 
 public:
     Tree();
@@ -35,7 +37,6 @@ public:
 
     virtual void print() const noexcept = 0;
 
-    virtual ~Tree();
 };
 
 template<typename T>
@@ -44,7 +45,7 @@ Tree<T>::Tree() : root(nullptr){
 
 template<typename T>
 BaseIterator<T> Tree<T>::begin() const noexcept {
-    Tree<T>::Node* temp = root;
+    std::shared_ptr<Tree<T>::Node> temp = root;
 
     while (temp->previous() != nullptr){
         temp = temp->previous();
@@ -60,7 +61,7 @@ BaseIterator<T> Tree<T>::end() const noexcept {
 
 template<typename T>
 BaseIterator<T> Tree<T>::rbegin() const noexcept {
-    Tree<T>::Node* temp = root;
+    std::shared_ptr<Tree<T>::Node> temp = root;
     while (temp->next() != nullptr){
         temp = temp->next();
     }
@@ -73,10 +74,6 @@ BaseIterator<T> Tree<T>::rend() const noexcept {
     return BaseIterator<T>(nullptr, std::make_shared<ReverseIteration<T>>());
 }
 
-template<typename T>
-Tree<T>::~Tree() {
-    delete root;
-}
 
 template<typename T>
 Tree<T>::Node::Node(const T &key) : data(key){

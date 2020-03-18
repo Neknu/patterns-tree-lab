@@ -5,7 +5,7 @@
 
 template<typename T>
 BaseIterator<T>::BaseIterator(
-        typename Tree<T>::Node *root,
+        std::shared_ptr<typename Tree<T>::Node> root,
         std::shared_ptr<IterationPolicy<T>> policy
 )
         : curr_node(root), policy(policy){}
@@ -50,12 +50,12 @@ bool BaseIterator<T>::operator==(const BaseIterator &other) noexcept {
 
 
 template<typename T>
-typename Tree<T>::Node* ForwardIteration<T>::next(typename Tree<T>::Node* node) const noexcept{
+std::shared_ptr<typename Tree<T>::Node> ForwardIteration<T>::next(std::shared_ptr<typename Tree<T>::Node> node) const noexcept{
     return node->next();
 }
 
 
 template<typename T>
-typename Tree<T>::Node* ReverseIteration<T>::next(typename Tree<T>::Node* node) const noexcept{
+std::shared_ptr<typename Tree<T>::Node> ReverseIteration<T>::next(std::shared_ptr<typename Tree<T>::Node> node) const noexcept{
     return node->previous();
 }
