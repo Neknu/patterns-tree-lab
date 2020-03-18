@@ -15,7 +15,13 @@ int main () {
     tree.insert(8);
     tree.insert(2);
     tree.insert(3);
-    tree.print();
+    //tree.print();
+
+    auto iter = tree.find(1);
+
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i){
+        std::cout << *i;
+    }
 
 
 

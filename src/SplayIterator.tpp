@@ -1,20 +1,20 @@
-#include "BaseIterator.hpp"
+#include "SplayIterator.hpp"
 #include "Tree.h"
 
 #include <iostream>
 
 template<typename T>
-BaseIterator<T>::BaseIterator(
-        std::shared_ptr<typename Tree<T>::Node> root,
+SplayIterator<T>::SplayIterator(
+        std::shared_ptr<typename SplayTree<T>::SplayNode> root,
         std::shared_ptr<IterationPolicy<T>> policy
 )
         : curr_node(root), policy(policy){}
 
 
 template<typename T>
-BaseIterator<T>& BaseIterator<T>::operator++() noexcept {
+SplayIterator<T>& SplayIterator<T>::operator++() noexcept {
     if (curr_node != nullptr){
-        curr_node = policy->next(curr_node);
+        curr_node = std::dynamic_pointer_cast<typename SplayTree<T>::SplayNode>(policy->next(curr_node));
     }
 
     return *this;
@@ -22,29 +22,30 @@ BaseIterator<T>& BaseIterator<T>::operator++() noexcept {
 
 
 template<typename T>
-BaseIterator<T> BaseIterator<T>::operator+(int n) const noexcept {
+SplayIterator<T> SplayIterator<T>::operator+(int n) const noexcept {
     auto temp = curr_node;
     for (int i = 0; i < n; ++i){
         if (temp == nullptr){
             break;
         }
-        temp = policy->next(temp);
+        temp = std::dynamic_pointer_cast<typename SplayTree<T>::SplayNode>(policy->next(curr_node));
     }
-    return BaseIterator(temp, policy);
+    return SplayIterator(temp, policy);
 }
 
+
 template<typename T>
-const T& BaseIterator<T>::operator*() const noexcept {
+const T& SplayIterator<T>::operator*() const noexcept {
     return curr_node->data;
 }
 
 template<typename T>
-bool BaseIterator<T>::operator!=(const BaseIterator &other) noexcept {
+bool SplayIterator<T>::operator!=(const SplayIterator &other) noexcept {
     return curr_node != other.curr_node;
 }
 
 template<typename T>
-bool BaseIterator<T>::operator==(const BaseIterator &other) noexcept {
+bool SplayIterator<T>::operator==(const SplayIterator &other) noexcept {
     return curr_node == other.curr_node;
 }
 
