@@ -2,7 +2,6 @@
 
 
 #include "Tree.h"
-#include "SplayTreeIterator.hpp"
 
 /**
 * @brief Class for implementing Splay Tree
