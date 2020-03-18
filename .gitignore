@@ -171,7 +171,7 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
-[Oo]bj/
+[Oo]bj/auto i : tree
 [Ll]og/
 
 # Visual Studio 2015/2017 cache/options directory

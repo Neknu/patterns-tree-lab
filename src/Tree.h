@@ -13,6 +13,7 @@ public:
         explicit Node(const T& key);
         virtual Node* next() const noexcept = 0;
         virtual Node* previous() const noexcept = 0;
+        virtual ~Node() = default;
 
     //protected:
         T data;
@@ -33,6 +34,8 @@ public:
     virtual BaseIterator<T> rend() const noexcept;
 
     virtual void print() const noexcept = 0;
+
+    virtual ~Tree();
 };
 
 template<typename T>
@@ -68,6 +71,11 @@ BaseIterator<T> Tree<T>::rbegin() const noexcept {
 template<typename T>
 BaseIterator<T> Tree<T>::rend() const noexcept {
     return BaseIterator<T>(nullptr, std::make_shared<ReverseIteration<T>>());
+}
+
+template<typename T>
+Tree<T>::~Tree() {
+    delete root;
 }
 
 template<typename T>

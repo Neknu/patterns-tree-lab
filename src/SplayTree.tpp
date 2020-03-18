@@ -3,12 +3,6 @@
 
 #include <iostream>
 
-template<typename T>
-SplayTree<T>::~SplayTree() {
-    delete Tree<T>::root;
-}
-
-
 
 template<typename T>
 void SplayTree<T>::insert(const T &key) {
@@ -114,7 +108,8 @@ SplayTree<T>::SplayNode::SplayNode(const T &key) : Tree<T>::Node(key) {
 
 template<typename T>
 SplayTree<T>::SplayNode::~SplayNode() {
-    delete Tree<T>::root;
+    delete left;
+    delete right;
 }
 
 

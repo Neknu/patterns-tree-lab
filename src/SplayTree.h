@@ -13,7 +13,6 @@ private:
     class SplayNode;
 public:
     SplayTree();
-    ~SplayTree();
 
     void insert(const T& key) override;
     void remove(const T& key) noexcept override;
