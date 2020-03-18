@@ -20,8 +20,6 @@ public:
 
     void print() const noexcept override;
 
-    static void printNode(SplayNode*) noexcept;
-
 private:
     class SplayNode : public Tree<T>::Node {
         public:

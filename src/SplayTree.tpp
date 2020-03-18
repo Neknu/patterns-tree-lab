@@ -79,21 +79,12 @@ BaseIterator<T> SplayTree<T>::find(const T &key) const noexcept{
 
 template<typename T>
 void SplayTree<T>::print() const noexcept {
-    printNode(dynamic_cast<SplayNode*>(Tree<T>::root));
-}
-
-
-
-template<typename T>
-void SplayTree<T>::printNode(SplayTree::SplayNode* node) noexcept {
-    if (!node){
-        return;
+    for (auto i = Tree<T>::begin(); i != Tree<T>::end(); ++i){
+        std::cout << *i << " ";
     }
-
-    printNode(node->left);
-    std::cout << node->data << " ";
-    printNode(node->right);
 }
+
+
 
 template<typename T>
 SplayTree<T>::SplayTree() : Tree<T>(){
@@ -101,7 +92,7 @@ SplayTree<T>::SplayTree() : Tree<T>(){
 
 
 template<typename T>
-SplayTree<T>::SplayNode::SplayNode(const T &key) : Tree<T>::Node(key) {
+SplayTree<T>::SplayNode::SplayNode(const T &key) : Tree<T>::Node(key), parent(nullptr), left(nullptr), right(nullptr) {
 }
 
 

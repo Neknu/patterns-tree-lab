@@ -17,9 +17,6 @@ int main () {
     tree.insert(3);
     //tree.print();
 
-    for (auto iter = tree.rbegin(); iter != tree.rend(); ++iter){
-        std::cout << *iter << std::endl;
-    }
 
 
     return 0;
