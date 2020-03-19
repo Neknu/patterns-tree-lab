@@ -25,7 +25,7 @@ class BIterator {
 public:
     friend class Tree<T>;
 
-    BIterator(std::shared_ptr<typename IterationBNode<T>::IterationBNode> root, std::shared_ptr<IterationPolicy<T>> policy);
+    BIterator(std::shared_ptr<typename BTree<T>::IterationBNode> root, std::shared_ptr<IterationPolicy<T>> policy);
 
     virtual const T& operator*() const noexcept;
 

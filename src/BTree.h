@@ -1,4 +1,68 @@
 #pragma once
+
+
+#include "Tree.h"
+#include "BIterator.hpp"
+#include <vector>
+
+/**
+* @brief Class for implementing B Tree
+*/
+template<typename T>
+class BTree : public Tree<T> {
+public:
+    class BNode;
+public:
+    explicit BTree(int min_degree);
+
+    void insert(const T& key) override;
+    void remove(const T& key) noexcept override;
+    void print() const noexcept override;
+
+    BIterator<T> find(const T& key) const noexcept;
+    BIterator<T> begin() const noexcept;
+    BIterator<T> end() const noexcept;
+    BIterator<T> rbegin() const noexcept;
+    BIterator<T> rend() const noexcept;
+
+
+public:
+    int min_degree;
+
+    class IterationBNode;
+
+    class BNode : public Tree<T>::Node {
+    public:
+        explicit BNode(bool is_leaf);
+        ~BNode() {
+            keys.clear();
+            children.clear();
+        }
+
+        void print();
+        BIterator<T> find(const T& key);
+
+    public:
+        std::vector<T> keys;
+        std::vector<std::shared_ptr<BNode>> children;
+        bool is_leaf;
+        std::shared_ptr<IterationBNode> parent;
+    };
+
+    class IterationBNode: public BNode {
+    public:
+        // index of current key in BNode
+        int index;
+    public:
+        IterationBNode(std::shared_ptr<BNode> bnode, int _index);
+        std::shared_ptr<typename Tree<T>::Node> next() const noexcept override;
+        std::shared_ptr<typename Tree<T>::Node> previous() const noexcept override;
+    };
+};
+
+#include "BTree.tpp"
+
+// #pragma once
 //
 //#include "Tree.h"
 //
