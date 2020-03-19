@@ -4,6 +4,10 @@
 #include "Tree.h"
 #include "SplayIterator.hpp"
 
+
+#include <utility>
+
+
 /**
 * @brief Class for implementing Splay Tree
 */
@@ -43,6 +47,20 @@ class SplayNode : public Tree<T>::Node {
             std::shared_ptr<SplayNode> left;
             std::shared_ptr<SplayNode> right;
         };
+
+private:
+    static void zig(std::shared_ptr<SplayNode> node) noexcept;
+    static void zigzig(std::shared_ptr<SplayNode> node) noexcept;
+    static void zigzag(std::shared_ptr<SplayNode> node) noexcept;
+
+
+    static std::shared_ptr<SplayNode> splay(std::shared_ptr<SplayNode> node) noexcept;
+    static std::pair<std::shared_ptr<SplayNode>, std::shared_ptr<SplayNode>> split(std::shared_ptr<SplayNode> node, const T& key) noexcept;
+    static std::shared_ptr<SplayNode> merge(std::shared_ptr<SplayNode> lhs, std::shared_ptr<SplayNode> rhs) noexcept;
+
+    static void swap_value(std::shared_ptr<SplayNode>& var, std::shared_ptr<SplayNode>& value, std::shared_ptr<SplayNode>& new_parent = nullptr);
+
 };
+
 
 #include "SplayTree.tpp"

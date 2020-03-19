@@ -11,6 +11,5 @@ int main () {
     BalancedTreeContext<int, SplayTree<int>> context(std::make_shared<SplayTree<int>>(tree));
 
 
-
     return 0;
 }
