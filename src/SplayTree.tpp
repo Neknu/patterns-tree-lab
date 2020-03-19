@@ -7,18 +7,18 @@
 template<typename T>
 void SplayTree<T>::insert(const T &key) {
     if (Tree<T>::root == nullptr){
-        Tree<T>::root = new SplayNode(key);
+        Tree<T>::root = std::make_shared<SplayNode>(key);
         return;
     }
 
-    auto temp = dynamic_cast<SplayNode*>(Tree<T>::root);
+    auto temp = std::dynamic_pointer_cast<SplayNode>(Tree<T>::root);
 
     while(true){
         if (temp->data < key){
             if (temp->right){
                 temp = temp->right;
             } else {
-                temp->right = new SplayNode(key);
+                temp->right = std::make_shared<SplayNode>(key);
                 temp->right->parent = temp;
                 return;
             }
@@ -26,7 +26,7 @@ void SplayTree<T>::insert(const T &key) {
             if (temp->left){
                 temp = temp->left;
             } else {
-                temp->left = new SplayNode(key);
+                temp->left = std::make_shared<SplayNode>(key);
                 temp->left->parent = temp;
                 return;
             }
@@ -46,25 +46,25 @@ void SplayTree<T>::remove(const T &key) noexcept{
 
 
 template<typename T>
-BaseIterator<T> SplayTree<T>::find(const T &key) const noexcept{
+SplayIterator<T> SplayTree<T>::find(const T &key) const noexcept{
 
-    if (Tree<T>::root->data == key){
-        return BaseIterator<T>(Tree<T>::root, std::make_shared<ForwardIteration<T>>());
+    if (std::dynamic_pointer_cast<SplayNode>(Tree<T>::root)->data == key){
+        return SplayIterator<T>(std::dynamic_pointer_cast<SplayNode>(Tree<T>::root), std::make_shared<ForwardIteration<T>>());
     }
 
 
-    SplayNode* temp = nullptr;
+    std::shared_ptr<SplayNode> temp = nullptr;
 
-    if (Tree<T>::root->data > key){
-        temp = dynamic_cast<SplayNode*>(Tree<T>::root)->left;
+    if (std::dynamic_pointer_cast<SplayNode>(Tree<T>::root)->data > key){
+        temp = std::dynamic_pointer_cast<SplayNode>(Tree<T>::root)->left;
     } else {
-        temp = dynamic_cast<SplayNode*>(Tree<T>::root)->right;
+        temp = std::dynamic_pointer_cast<SplayNode>(Tree<T>::root)->right;
     }
 
 
     while (temp != nullptr){
         if (temp->data == key){
-            return BaseIterator<T>(temp, std::make_shared<ForwardIteration<T>>());
+            return SplayIterator<T>(temp, std::make_shared<ForwardIteration<T>>());
         } else if (temp->data > key){
             temp = temp->left;
         } else {
@@ -72,15 +72,22 @@ BaseIterator<T> SplayTree<T>::find(const T &key) const noexcept{
         }
     }
 
-    return BaseIterator<T>(nullptr, std::shared_ptr<ForwardIteration<T>>());
+    return SplayIterator<T>(nullptr, std::shared_ptr<ForwardIteration<T>>());
 }
 
 
 
 template<typename T>
 void SplayTree<T>::print() const noexcept {
-    for (auto i = Tree<T>::begin(); i != Tree<T>::end(); ++i){
-        std::cout << *i << " ";
+    auto temp = std::dynamic_pointer_cast<SplayNode>(Tree<T>::root);
+    while(temp->previous() != nullptr){
+        temp = std::dynamic_pointer_cast<SplayNode>(temp->previous());
+    }
+
+    while(temp != nullptr){
+        std::cout << temp->data << " ";
+
+        temp = std::dynamic_pointer_cast<SplayNode>(temp->next());
     }
 }
 
@@ -90,23 +97,48 @@ template<typename T>
 SplayTree<T>::SplayTree() : Tree<T>(){
 }
 
+template<typename T>
+SplayIterator<T> SplayTree<T>::begin() const noexcept {
+    auto temp = std::dynamic_pointer_cast<SplayNode>(Tree<T>::root);
+
+    while (temp->previous() != nullptr){
+        temp = std::dynamic_pointer_cast<SplayNode>(temp->previous());
+    }
+
+    return SplayIterator<T>(temp, std::make_shared<ForwardIteration<T>>());
+}
 
 template<typename T>
-SplayTree<T>::SplayNode::SplayNode(const T &key) : Tree<T>::Node(key), parent(nullptr), left(nullptr), right(nullptr) {
+SplayIterator<T> SplayTree<T>::end() const noexcept {
+    return SplayIterator<T>(nullptr, std::make_shared<ForwardIteration<T>>());
+}
+
+template<typename T>
+SplayIterator<T> SplayTree<T>::rbegin() const noexcept {
+    auto temp = std::dynamic_pointer_cast<SplayNode>(Tree<T>::root);
+
+    while(temp->next() != nullptr){
+        temp = std::dynamic_pointer_cast<SplayNode>(temp->next());
+    }
+
+    return SplayIterator<T>(temp, std::make_shared<ReverseIteration<T>>());
+}
+
+template<typename T>
+SplayIterator<T> SplayTree<T>::rend() const noexcept {
+    return SplayIterator<T>(nullptr, std::make_shared<ReverseIteration<T>>());
+}
+
+
+template<typename T>
+SplayTree<T>::SplayNode::SplayNode(const T &key) : data(key), parent(nullptr), left(nullptr), right(nullptr) {
 }
 
 
 
-template<typename T>
-SplayTree<T>::SplayNode::~SplayNode() {
-    delete left;
-    delete right;
-}
-
-
 
 template<typename T>
-typename Tree<T>::Node* SplayTree<T>::SplayNode::next() const noexcept {
+std::shared_ptr<typename Tree<T>::Node> SplayTree<T>::SplayNode::next() const noexcept {
     if (right) {
         auto temp = right;
         while (temp->left) {
@@ -139,7 +171,7 @@ typename Tree<T>::Node* SplayTree<T>::SplayNode::next() const noexcept {
 
 
 template<typename T>
-typename Tree<T>::Node *SplayTree<T>::SplayNode::previous() const noexcept {
+std::shared_ptr<typename Tree<T>::Node> SplayTree<T>::SplayNode::previous() const noexcept {
     if (left) {
         auto temp = left;
         while (temp->right) {
@@ -181,7 +213,7 @@ bool SplayTree<T>::SplayNode::isLeftSon() const noexcept {
         return false;
     }
 
-    return parent->left == this;
+    return parent->left->data == this->data;
 }
 
 
@@ -196,5 +228,5 @@ bool SplayTree<T>::SplayNode::isRightSon() const noexcept {
         return false;
     }
 
-    return parent->right == this;
+    return parent->right->data == this->data;
 }

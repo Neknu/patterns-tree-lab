@@ -5,6 +5,9 @@
 template<typename T>
 class Tree;
 
+template <typename T>
+class SplayTree;
+
 
 
 template<typename T>
@@ -16,7 +19,7 @@ class IterationPolicy{
      *
      * */
 public:
-    virtual typename Tree<T>::Node* next(typename Tree<T>::Node* node) const noexcept = 0;
+    virtual std::shared_ptr<typename Tree<T>::Node> next(std::shared_ptr<typename Tree<T>::Node> node) const noexcept = 0;
 };
 
 
@@ -30,7 +33,7 @@ class ForwardIteration : public IterationPolicy<T>{
      *
      * */
 public:
-    typename Tree<T>::Node* next(typename Tree<T>::Node* node) const noexcept override;
+    std::shared_ptr<typename Tree<T>::Node> next(std::shared_ptr<typename Tree<T>::Node> node) const noexcept override;
 };
 
 
@@ -44,14 +47,14 @@ class ReverseIteration : public IterationPolicy<T>{
      *
      * */
 public:
-    typename Tree<T>::Node* next(typename Tree<T>::Node* node) const noexcept override;
+    std::shared_ptr<typename Tree<T>::Node> next(std::shared_ptr<typename Tree<T>::Node> node) const noexcept override;
 };
 
 
 
 
 template<typename T>
-class BaseIterator {
+class SplayIterator {
 /**
  *
  * Base class-interface for iterators
@@ -65,22 +68,22 @@ class BaseIterator {
 public:
     friend class Tree<T>;
 
-    BaseIterator(typename Tree<T>::Node* root, std::shared_ptr<IterationPolicy<T>> policy);
+    SplayIterator(std::shared_ptr<typename SplayTree<T>::SplayNode> root, std::shared_ptr<IterationPolicy<T>> policy);
 
     virtual const T& operator*() const noexcept;
 
-    virtual bool operator!=(const BaseIterator &other) noexcept;
+    virtual bool operator!=(const SplayIterator &other) noexcept;
 
-    virtual bool operator==(const BaseIterator &other) noexcept;
+    virtual bool operator==(const SplayIterator &other) noexcept;
 
-    BaseIterator& operator++() noexcept;
+    SplayIterator& operator++() noexcept;
 
-    BaseIterator operator+(int n) const noexcept;
+    SplayIterator operator+(int n) const noexcept;
 
 protected:
-    typename Tree<T>::Node* curr_node;
+    std::shared_ptr<typename SplayTree<T>::SplayNode> curr_node;
     std::shared_ptr<IterationPolicy<T>> policy;
 };
 
 
-#include "BaseIterator.tpp"
+#include "SplayIterator.tpp"
