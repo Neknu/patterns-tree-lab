@@ -6,13 +6,14 @@
 
 template<typename T>
 void BTree<T>::insert(const T &key) {
-    auto root = std::dynamic_pointer_cast<BNode>(Tree<T>::root);
-    if (root == nullptr) {
-        root = std::make_shared<BNode>(true);
+    if (Tree<T>::root == nullptr) {
+        Tree<T>::root = std::make_shared<BNode>(true);
+        auto root = std::dynamic_pointer_cast<BNode>(Tree<T>::root);
         root->keys.push_back(key);
     }
     else // If tree is not empty 
     {
+        auto root = std::dynamic_pointer_cast<BNode>(Tree<T>::root);
         // If root is full, then tree grows in height 
         if (root->keys.size() == 2 * min_degree - 1) {
             // Allocate memory for new root 
@@ -203,7 +204,7 @@ void BTree<T>::BNode::splitChild(int index, std::shared_ptr<BNode> child) {
 
     if (!child->is_leaf) {
         for (int j = 0; j < min_degree; j++)
-            new_node->children[j].push_back(child->children[j + min_degree]);
+            new_node->children.push_back(child->children[j + min_degree]);
     }
 
     // Reduce the number of keys in y
@@ -236,7 +237,7 @@ std::shared_ptr<typename Tree<T>::Node> BTree<T>::IterationBNode::next() const n
                 return current->parent;
             return nullptr;
         }
-        return std::make_shared(IterationBNode(this, this->index + 1));
+        return std::make_shared<IterationBNode>(this, this->index + 1);
     }
     // Keep moving the left most node starting from children[index+1] until we reach a leaf
     auto current = this->children[this->index + 1];
@@ -244,7 +245,7 @@ std::shared_ptr<typename Tree<T>::Node> BTree<T>::IterationBNode::next() const n
         current = current->children[0];
 
     // Return the first key of the leaf
-    return std::make_shared(IterationBNode(current, 0));
+    return std::make_shared<IterationBNode>(current, 0);
 }
 
 template<typename T>
@@ -260,14 +261,14 @@ std::shared_ptr<typename Tree<T>::Node> BTree<T>::IterationBNode::previous() con
                 return current->parent;
             return nullptr;
         }
-        return std::make_shared(IterationBNode(this, this->index - 1));
+        return std::make_shared<IterationBNode>(this, this->index - 1);
     }
     auto current = this->children[this->index];
     while (!current->is_leaf)
         current = current->children[current->keys.size()];
 
     // Return the last key of the leaf
-    return std::make_shared(IterationBNode(current, current->keys.size() - 1));
+    return std::make_shared<IterationBNode>(current, current->keys.size() - 1);
 }
 
 
