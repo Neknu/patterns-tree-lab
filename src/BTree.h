@@ -27,7 +27,7 @@ public:
 
 
 public:
-    int min_degree;
+    static int min_degree;
 
     class IterationBNode;
 
@@ -41,6 +41,12 @@ public:
 
         void print();
         BIterator<T> find(const T& key);
+
+        void insertNonFull(const T& key);
+
+        // A utility function to split the child `child` of this node. `index` is index of child in
+        // child array children[].  The Child y must be full when this function is called
+        void splitChild(int index, std::shared_ptr<BNode> child);
 
     public:
         std::vector<T> keys;

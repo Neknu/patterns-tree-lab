@@ -6,7 +6,37 @@
 
 template<typename T>
 void BTree<T>::insert(const T &key) {
+    auto root = std::dynamic_pointer_cast<BNode>(Tree<T>::root);
+    if (root == nullptr) {
+        root = std::make_shared<BNode>(true);
+        root->keys.push_back(key);
+    }
+    else // If tree is not empty 
+    {
+        // If root is full, then tree grows in height 
+        if (root->keys.size() == 2 * min_degree - 1) {
+            // Allocate memory for new root 
+            auto new_root =  std::make_shared<BNode>(false);
 
+            // Make old root as child of new root 
+            new_root->children.push_back(root);
+
+            // Split the old root and move 1 key to the new root 
+            new_root->splitChild(0, root);
+
+            // New root has two children now.  Decide which of the 
+            // two children is going to have new key 
+            int i = 0;
+            if (new_root->keys[0] < key)
+                i++;
+            new_root->children[i]->insertNonFull(key);
+
+            // Change root 
+            root = new_root;
+        }
+        else  // If root is not full, call insertNonFull for root 
+            root->insertNonFull(key);
+    }
 }
 
 
@@ -132,6 +162,56 @@ BTree<T>::BNode::BNode(bool _is_leaf) {
     parent = nullptr;
     keys.reserve(2 * BTree<T>::min_degree - 1);
     children.reserve(2 * BTree<T>::min_degree);
+}
+
+template<typename T>
+void BTree<T>::BNode::insertNonFull(const T &key) {
+    // Initialize index as index of rightmost element
+    int i = keys.size() - 1;
+
+
+    if (is_leaf) {
+        while (i >= 0 && keys[i] > key) {
+            i--;
+        }
+
+        keys.insert(keys.begin() + i + 1, key);
+    }
+    else // If this node is not leaf
+    {
+        // Find the child which is going to have the new key
+        while (i >= 0 && keys[i] > key)
+            i--;
+
+        if (children.size() == 2 * min_degree - 1) {
+
+            splitChild(i+1, children[i+1]);
+
+            if (keys[i+1] < key)
+                i++;
+        }
+        children[i+1]->insertNonFull(key);
+    }
+}
+
+template<typename T>
+void BTree<T>::BNode::splitChild(int index, std::shared_ptr<BNode> child) {
+    auto new_node = std::make_shared<BNode>(child->is_leaf);
+
+    for (int j = 0; j < min_degree - 1; j++)
+        new_node->keys.push_back(child->keys[j + min_degree]);
+
+    if (!child->is_leaf) {
+        for (int j = 0; j < min_degree; j++)
+            new_node->children[j].push_back(child->children[j + min_degree]);
+    }
+
+    // Reduce the number of keys in y
+    child->keys.resize(min_degree - 1);
+    
+    children.insert(children.begin() + index + 1, new_node);
+
+    keys.insert(keys.begin() + index, child->keys[min_degree - 1]);
 }
 
 
