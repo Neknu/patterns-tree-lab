@@ -50,13 +50,3 @@ bool SplayIterator<T>::operator==(const SplayIterator &other) noexcept {
 }
 
 
-template<typename T>
-std::shared_ptr<typename Tree<T>::Node> ForwardIteration<T>::next(std::shared_ptr<typename Tree<T>::Node> node) const noexcept{
-    return node->next();
-}
-
-
-template<typename T>
-std::shared_ptr<typename Tree<T>::Node> ReverseIteration<T>::next(std::shared_ptr<typename Tree<T>::Node> node) const noexcept{
-    return node->previous();
-}

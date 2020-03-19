@@ -17,7 +17,7 @@ set(SRC_LIST
         ${SRC_DIR}/BTree.cpp
         ${SRC_DIR}/BplusTree.cpp
         ${SRC_DIR}/SplayTree.cpp
-        )
+        src/IterationPolicy.h)
 
 set(LIB_NAME ${PROJECT_NAME}core)
 
