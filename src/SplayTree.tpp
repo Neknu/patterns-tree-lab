@@ -44,7 +44,33 @@ void SplayTree<T>::insert(const T &key) {
 
 template<typename T>
 void SplayTree<T>::remove(const T &key) noexcept{
+    auto found = std::dynamic_pointer_cast<SplayNode>(Tree<T>::root);
 
+    while (found->data != key){
+        if (found->data > key){
+            found = found->left;
+        } else {
+            found = found->right;
+        }
+
+        if (!found){
+            return ;
+        }
+    }
+
+
+    auto splayed = splay(found);
+    auto left_tree = splayed->left;
+    auto right_tree = splayed->right;
+    if (left_tree) {
+        left_tree->parent = nullptr;
+    }
+    if (right_tree) {
+        right_tree->parent = nullptr;
+    }
+
+
+    Tree<T>::root = merge(left_tree, right_tree);
 }
 
 
@@ -236,7 +262,7 @@ SplayTree<T>::merge(std::shared_ptr<SplayNode> lhs, std::shared_ptr<SplayNode> r
     auto max = lhs;
 
     while (max->next() != nullptr){
-        max = max->next();
+        max = std::dynamic_pointer_cast<SplayNode>(max->next());
     }
 
     auto lhs_root = splay(max);
