@@ -27,17 +27,20 @@ public:
 
 
 public:
-    static int min_degree;
+    int min_degree;
 
     class IterationBNode;
 
     class BNode : public Tree<T>::Node {
     public:
-        explicit BNode(bool is_leaf);
+        explicit BNode(bool is_leaf, int min_degree);
         ~BNode() {
             keys.clear();
             children.clear();
         }
+
+        std::shared_ptr<typename Tree<T>::Node> next() const noexcept override;
+        std::shared_ptr<typename Tree<T>::Node> previous() const noexcept override;
 
         void print();
         BIterator<T> find(const T& key);
@@ -52,6 +55,7 @@ public:
         std::vector<T> keys;
         std::vector<std::shared_ptr<BNode>> children;
         bool is_leaf;
+        int min_degree;
         std::shared_ptr<IterationBNode> parent;
     };
 

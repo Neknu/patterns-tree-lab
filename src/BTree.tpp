@@ -7,7 +7,7 @@
 template<typename T>
 void BTree<T>::insert(const T &key) {
     if (Tree<T>::root == nullptr) {
-        Tree<T>::root = std::make_shared<BNode>(true);
+        Tree<T>::root = std::make_shared<BNode>(true, min_degree);
         auto root = std::dynamic_pointer_cast<BNode>(Tree<T>::root);
         root->keys.push_back(key);
     }
@@ -17,7 +17,7 @@ void BTree<T>::insert(const T &key) {
         // If root is full, then tree grows in height 
         if (root->keys.size() == 2 * min_degree - 1) {
             // Allocate memory for new root 
-            auto new_root =  std::make_shared<BNode>(false);
+            auto new_root =  std::make_shared<BNode>(false, min_degree);
 
             // Make old root as child of new root 
             new_root->children.push_back(root);
@@ -33,7 +33,7 @@ void BTree<T>::insert(const T &key) {
             new_root->children[i]->insertNonFull(key);
 
             // Change root 
-            root = new_root;
+            Tree<T>::root = new_root;
         }
         else  // If root is not full, call insertNonFull for root 
             root->insertNonFull(key);
@@ -158,11 +158,12 @@ BTree<T>::BTree(int _min_degree) : Tree<T>(){
 
 
 template<typename T>
-BTree<T>::BNode::BNode(bool _is_leaf) {
+BTree<T>::BNode::BNode(bool _is_leaf, int _min_degree) {
     is_leaf = _is_leaf;
     parent = nullptr;
-    keys.reserve(2 * BTree<T>::min_degree - 1);
-    children.reserve(2 * BTree<T>::min_degree);
+    min_degree = _min_degree;
+    keys.reserve(2 * min_degree - 1);
+    children.reserve(2 * min_degree);
 }
 
 template<typename T>
@@ -197,7 +198,7 @@ void BTree<T>::BNode::insertNonFull(const T &key) {
 
 template<typename T>
 void BTree<T>::BNode::splitChild(int index, std::shared_ptr<BNode> child) {
-    auto new_node = std::make_shared<BNode>(child->is_leaf);
+    auto new_node = std::make_shared<BNode>(child->is_leaf, child->min_degree);
 
     for (int j = 0; j < min_degree - 1; j++)
         new_node->keys.push_back(child->keys[j + min_degree]);
@@ -213,6 +214,16 @@ void BTree<T>::BNode::splitChild(int index, std::shared_ptr<BNode> child) {
     children.insert(children.begin() + index + 1, new_node);
 
     keys.insert(keys.begin() + index, child->keys[min_degree - 1]);
+}
+
+template<typename T>
+std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::next() const noexcept {
+    return nullptr;
+}
+
+template<typename T>
+std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::previous() const noexcept {
+    return nullptr;
 }
 
 
