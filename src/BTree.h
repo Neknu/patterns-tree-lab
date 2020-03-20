@@ -25,11 +25,12 @@ public:
     BIterator<T> rbegin() const noexcept;
     BIterator<T> rend() const noexcept;
 
+    int getParentIndex(std::shared_ptr<BNode> child);
+    BIterator<T> findInNode(std::shared_ptr<BNode> current, const T& key) const;
+
 
 public:
     int min_degree;
-
-    class IterationBNode;
 
     class BNode : public Tree<T>::Node {
     public:
@@ -43,7 +44,6 @@ public:
         std::shared_ptr<typename Tree<T>::Node> previous() const noexcept override;
 
         void print();
-        BIterator<T> find(const T& key);
 
         void insertNonFull(const T& key);
 
@@ -56,77 +56,9 @@ public:
         std::vector<std::shared_ptr<BNode>> children;
         bool is_leaf;
         int min_degree;
-        std::shared_ptr<IterationBNode> parent;
-    };
-
-    class IterationBNode: public BNode {
-    public:
-        // index of current key in BNode
-        int index;
-    public:
-        IterationBNode(std::shared_ptr<BNode> bnode, int _index);
-        std::shared_ptr<typename Tree<T>::Node> next() const noexcept override;
-        std::shared_ptr<typename Tree<T>::Node> previous() const noexcept override;
+        int index; // index of current key (-1 if it doesn't need)
+        std::shared_ptr<BNode> parent;
     };
 };
 
 #include "BTree.tpp"
-
-// #pragma once
-//
-//#include "Tree.h"
-//
-//#include <vector>
-//
-///**
-//* @brief Class for implementing BTree
-//*/
-//template<typename T>
-//class BTree : public Tree<T> {
-//private:
-//    int min_degree;
-//
-//    class BNode : public Tree<T>::Node {
-//    protected:
-//        std::vector<T> keys;
-//        std::vector<BNode*> children;
-//        bool is_leaf;
-//    public:
-//        BNode(bool is_leaf);
-//        ~BNode() {
-//            keys.clear();
-//            children.clear();
-//        }
-//
-//        void print();
-//
-//        BaseIterator<T> find(const T& key);
-//
-//    };
-//
-//    class FindBNode: public BNode {
-//    private:
-//        int index;
-//    public:
-//        // index of current key in BNode
-//        FindBNode(BNode* bnode, int index);
-//        ~FindBNode() {
-//            this->keys.clear();
-//            this->children.clear();
-//        }
-//    };
-//
-//public:
-//    BTree(int min_degree);
-//    ~BTree() override;
-//
-//    void insert(const T& key) override;
-//    void remove(const T& key) override;
-//    BaseIterator<T> find(const T& key) const override;
-//
-//    void print() const noexcept override;
-//
-//};
-//
-//#include "BTree.tpp"
-

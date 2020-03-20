@@ -5,7 +5,7 @@
 
 template<typename T>
 BIterator<T>::BIterator(
-        std::shared_ptr<typename BTree<T>::IterationBNode> root,
+        std::shared_ptr<typename BTree<T>::BNode> root,
         std::shared_ptr<IterationPolicy<T>> policy
 )
         : curr_node(root), policy(policy){}
@@ -14,7 +14,7 @@ BIterator<T>::BIterator(
 template<typename T>
 BIterator<T>& BIterator<T>::operator++() noexcept {
     if (curr_node != nullptr){
-        curr_node = std::dynamic_pointer_cast<typename BTree<T>::IterationBNode>(policy->next(curr_node));
+        curr_node = std::dynamic_pointer_cast<typename BTree<T>::BNode>(policy->next(curr_node));
     }
 
     return *this;
@@ -28,7 +28,7 @@ BIterator<T> BIterator<T>::operator+(int n) const noexcept {
         if (temp == nullptr){
             break;
         }
-        temp = std::dynamic_pointer_cast<typename BTree<T>::IterationBNode>(policy->next(curr_node));
+        temp = std::dynamic_pointer_cast<typename BTree<T>::BNode>(policy->next(curr_node));
     }
     return BIterator(temp, policy);
 }
