@@ -23,9 +23,8 @@ int main () {
     std::cout << "dddd" << tree.find(444).operator*();
     tree.print();
 
-//    BalancedTreeContext<int, SplayTree<int>> context(std::make_shared<SplayTree<int>>(tree));
+    BalancedTreeContext<BTree, int> context(std::make_shared<BTree<int>>(3));
 
-    BalancedTreeContext<int, BTree<int>> context(std::make_shared<BTree<int>>(tree));
 
 
     return 0;
