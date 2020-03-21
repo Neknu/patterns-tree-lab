@@ -25,7 +25,7 @@ public:
     BIterator<T> rbegin() const noexcept;
     BIterator<T> rend() const noexcept;
 
-    int getParentIndex(std::shared_ptr<BNode> child);
+    static int getParentIndex(std::shared_ptr<BNode> child);
     BIterator<T> findInNode(std::shared_ptr<BNode> current, const T& key) const;
 
 

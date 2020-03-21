@@ -32,6 +32,7 @@ void BTree<T>::insert(const T &key) {
                 i++;
             new_root->children[i]->insertNonFull(key);
 
+            root->parent = new_root;
             // Change root 
             Tree<T>::root = new_root;
         }
@@ -205,6 +206,7 @@ void BTree<T>::BNode::splitChild(int ind, std::shared_ptr<BNode> child) {
     child->keys.resize(min_degree - 1);
     
     children.insert(children.begin() + ind + 1, new_node);
+    new_node->parent = child;
 
     keys.insert(keys.begin() + ind, child->keys[min_degree - 1]);
 }
@@ -215,8 +217,7 @@ std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::next() const noexcept {
         auto current = this->parent->children[0];
         if(index == 0) {
             // move up until there is prev value or root
-//            while(current->parent && getParentIndex(current) == 0) {
-            while(current->parent) {
+            while(current->parent && BTree<T>::getParentIndex(current) == 0) {
                 current = current->parent;
             }
             if(current->parent)
@@ -241,8 +242,8 @@ std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::previous() const noexce
         auto current = this->parent->children[0];
         if(this->index == 0) {
             // move up until there is prev value or root
-//            while(current->parent && getParentIndex(current) == 0) {
-            while(current->parent) {
+            while(current->parent && BTree<T>::getParentIndex(current) == 0) {
+//            while(current->parent) {
                 current = current->parent;
             }
             if(current->parent)
