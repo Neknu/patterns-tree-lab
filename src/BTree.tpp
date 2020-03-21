@@ -22,6 +22,7 @@ void BTree<T>::insert(const T &key) {
             // Make old root as child of new root 
             new_root->children.push_back(root);
 
+            root->parent = new_root;
             // Split the old root and move 1 key to the new root 
             new_root->splitChild(0, root);
 
@@ -32,7 +33,6 @@ void BTree<T>::insert(const T &key) {
                 i++;
             new_root->children[i]->insertNonFull(key);
 
-            root->parent = new_root;
             // Change root 
             Tree<T>::root = new_root;
         }
@@ -179,7 +179,7 @@ void BTree<T>::BNode::insertNonFull(const T &key) {
         while (i >= 0 && keys[i] > key)
             i--;
 
-        if (children.size() == 2 * min_degree - 1) {
+        if (children[i + 1]->keys.size() == 2 * min_degree - 1) {
 
             splitChild(i+1, children[i+1]);
 
@@ -204,9 +204,8 @@ void BTree<T>::BNode::splitChild(int ind, std::shared_ptr<BNode> child) {
 
     // Reduce the number of keys in y
     child->keys.resize(min_degree - 1);
-    
     children.insert(children.begin() + ind + 1, new_node);
-    new_node->parent = child;
+    new_node->parent = child->parent;
 
     keys.insert(keys.begin() + ind, child->keys[min_degree - 1]);
 }
