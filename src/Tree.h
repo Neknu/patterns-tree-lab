@@ -23,54 +23,54 @@ public:
 };
 
 
-template<typename T, typename TreeType>
+template<template <typename T> typename TreeType, typename DataType>
 class BalancedTreeContext{
 public:
-    explicit BalancedTreeContext(std::shared_ptr<TreeType> tree);
+    explicit BalancedTreeContext(std::shared_ptr<TreeType<DataType>> tree);
 
     /*
      * Тут потім будуть методи для взаємодії з деревом, але зараз це не важливо
      * */
 
-    void insert(const T& key);
-    void remove(const T& key) noexcept;
+    void insert(const DataType& key);
+    void remove(const DataType& key) noexcept;
     void print() const noexcept;
 
-    auto find(const T& key);
+    auto find(const DataType& key);
 
 
 private:
-    std::shared_ptr<TreeType> tree;
+    std::shared_ptr<TreeType<DataType>> tree;
 };
 
 
 
-template<typename T, typename TreeType>
-BalancedTreeContext<T, TreeType>::BalancedTreeContext(std::shared_ptr<TreeType> tree) : tree(tree){
+template<template <typename T> typename TreeType, typename DataType>
+BalancedTreeContext<TreeType, DataType>::BalancedTreeContext(std::shared_ptr<TreeType<DataType>> tree) : tree(tree){
 
 }
 
 
 
-template<typename T, typename TreeType>
-void BalancedTreeContext<T, TreeType>::insert(const T &key) {
+template<template<typename T> typename TreeType, typename DataType>
+void BalancedTreeContext<TreeType, DataType>::insert(const DataType &key) {
     tree->insert(key);
 }
 
 
 
-template<typename T, typename TreeType>
-void BalancedTreeContext<T, TreeType>::remove(const T &key) noexcept {
+template<template<typename T> typename TreeType, typename DataType>
+void BalancedTreeContext<TreeType, DataType>::remove(const DataType &key) noexcept {
     tree->remove(key);
 }
 
-template<typename T, typename TreeType>
-void BalancedTreeContext<T, TreeType>::print() const noexcept {
+template<template<typename T> typename TreeType, typename DataType>
+void BalancedTreeContext<TreeType, DataType>::print() const noexcept {
     tree->print();
 }
 
-template<typename T, typename TreeType>
-auto BalancedTreeContext<T, TreeType>::find(const T &key) {
+template<template<typename T> typename TreeType, typename DataType>
+auto BalancedTreeContext<TreeType, DataType>::find(const DataType &key) {
 
     return tree->find(key);
 }

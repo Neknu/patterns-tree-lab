@@ -8,7 +8,8 @@
 int main () {
     SplayTree<int> tree;
 
-    BalancedTreeContext<int, SplayTree<int>> context(std::make_shared<SplayTree<int>>(tree));
+    BalancedTreeContext<SplayTree, int> context(std::make_shared<SplayTree<int>>(tree));
+
 
 
     return 0;
