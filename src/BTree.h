@@ -4,6 +4,7 @@
 #include "Tree.h"
 #include "BIterator.hpp"
 #include <vector>
+#include <memory>
 
 /**
 * @brief Class for implementing B Tree
@@ -32,8 +33,12 @@ public:
 public:
     int min_degree;
 
-    class BNode : public Tree<T>::Node {
+class BNode : public std::enable_shared_from_this<BNode>, public Tree<T>::Node {
     public:
+
+        std::shared_ptr<BNode> getptr() {
+            return this->shared_from_this();
+        }
         explicit BNode(bool is_leaf, int min_degree);
         ~BNode() {
             keys.clear();

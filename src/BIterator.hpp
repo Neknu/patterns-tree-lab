@@ -37,7 +37,7 @@ public:
 
     BIterator operator+(int n) const noexcept;
 
-protected:
+public:
     std::shared_ptr<typename BTree<T>::BNode> curr_node;
     std::shared_ptr<IterationPolicy<T>> policy;
 };

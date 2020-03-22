@@ -212,9 +212,9 @@ void BTree<T>::BNode::splitChild(int ind, std::shared_ptr<BNode> child) {
 
 template<typename T>
 std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::next() const noexcept {
-    if(this->is_leaf) {
-        auto current = this->parent->children[0];
+    if(this->is_leaf && this->parent) {
         if(index == 0) {
+            auto current = this->parent->children[0];
             // move up until there is prev value or root
             while(current->parent && BTree<T>::getParentIndex(current) == 0) {
                 current = current->parent;
@@ -223,8 +223,8 @@ std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::next() const noexcept {
                 return current->parent;
             return nullptr;
         }
-        current->index -= 1;
-        return current;
+        this->getptr()->index += 1;
+        return this->getptr();
     }
     auto current = this->children[this->index];
     while (!current->is_leaf)
