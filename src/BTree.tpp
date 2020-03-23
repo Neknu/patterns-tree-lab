@@ -205,6 +205,8 @@ void BTree<T>::BNode::insertNonFull(const T &key) {
 
         if (children[i + 1]->keys.size() == 2 * min_degree - 1) {
 
+            children[i+1]->parent = this->shared_from_this();
+
             splitChild(i+1, children[i+1]);
 
             if (keys[i+1] < key)
@@ -223,8 +225,11 @@ void BTree<T>::BNode::splitChild(int ind, std::shared_ptr<BNode> child) {
 
 
     if (!child->is_leaf) {
-        for (int j = 0; j < min_degree; j++)
+        for (int j = 0; j < min_degree; j++) {
             new_node->children.push_back(child->children[j + min_degree]);
+            new_node->children[new_node->children.size() - 1]->parent = new_node;
+        }
+
     }
 
     child->keys.resize(min_degree - 1);
