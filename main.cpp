@@ -20,7 +20,12 @@ int main () {
     tree.insert(444);
     tree.insert(12);
     tree.insert(14);
-    std::cout << "dddd" << tree.find(444).operator*();
+    auto it = tree.find(5);
+    while(it != tree.end()) {
+        std::cout << it.operator*() << " ";
+        ++it;
+    }
+
     tree.print();
 
     BalancedTreeContext<BTree, int> context(std::make_shared<BTree<int>>(3));

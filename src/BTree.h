@@ -45,8 +45,8 @@ class BNode : public std::enable_shared_from_this<BNode>, public Tree<T>::Node {
             children.clear();
         }
 
-        std::shared_ptr<typename Tree<T>::Node> next() const noexcept override;
-        std::shared_ptr<typename Tree<T>::Node> previous() const noexcept override;
+        std::shared_ptr<typename Tree<T>::Node> next() noexcept override;
+        std::shared_ptr<typename Tree<T>::Node> previous() noexcept override;
 
         void print();
 

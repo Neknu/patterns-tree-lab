@@ -323,7 +323,7 @@ SplayTree<T>::SplayNode::SplayNode(const T &key) : data(key), parent(nullptr), l
 
 
 template<typename T>
-std::shared_ptr<typename Tree<T>::Node> SplayTree<T>::SplayNode::next() const noexcept {
+std::shared_ptr<typename Tree<T>::Node> SplayTree<T>::SplayNode::next() noexcept {
     if (right) {
         auto temp = right;
         while (temp->left) {
@@ -356,7 +356,7 @@ std::shared_ptr<typename Tree<T>::Node> SplayTree<T>::SplayNode::next() const no
 
 
 template<typename T>
-std::shared_ptr<typename Tree<T>::Node> SplayTree<T>::SplayNode::previous() const noexcept {
+std::shared_ptr<typename Tree<T>::Node> SplayTree<T>::SplayNode::previous() noexcept {
     if (left) {
         auto temp = left;
         while (temp->right) {

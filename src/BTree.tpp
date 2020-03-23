@@ -211,44 +211,49 @@ void BTree<T>::BNode::splitChild(int ind, std::shared_ptr<BNode> child) {
 }
 
 template<typename T>
-std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::next() const noexcept {
-    if(this->is_leaf && this->parent) {
-        if(index == 0) {
-            auto current = this->parent->children[0];
+std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::next() noexcept {
+    if(this->is_leaf) {
+        if(this->index == this->keys.size() - 1  && this->parent) {
+            auto current = this->getptr();
             // move up until there is prev value or root
-            while(current->parent && BTree<T>::getParentIndex(current) == 0) {
+            while(current->parent && current->parent->keys.size() == getParentIndex(current)) {
                 current = current->parent;
             }
-            if(current->parent)
+            if(current->parent) {
+                current->parent->index = getParentIndex(current);
                 return current->parent;
+            }
             return nullptr;
         }
-        this->getptr()->index += 1;
-        return this->getptr();
+        auto current = this->getptr();
+        current->index += 1;
+        return current;
     }
-    auto current = this->children[this->index];
+    auto current = this->children[this->index + 1];
     while (!current->is_leaf)
-        current = current->children[current->keys.size()];
+        current = current->children[0];
 
-    // Return the last key of the leaf
-    current->index = current->keys.size() - 1;
+    current->index = 0;
     return current;
 }
 
 template<typename T>
-std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::previous() const noexcept {
+std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::previous() noexcept {
     if(this->is_leaf) {
-        auto current = this->parent->children[0];
-        if(this->index == 0) {
+        if(this->index == 0 && this->parent) {
+            auto current = this->getptr();
             // move up until there is prev value or root
             while(current->parent && BTree<T>::getParentIndex(current) == 0) {
 //            while(current->parent) {
                 current = current->parent;
             }
-            if(current->parent)
+            if(current->parent) {
+                current->parent->index = getParentIndex(current);
                 return current->parent;
+            }
             return nullptr;
         }
+        auto current = this->getptr();
         current->index -= 1;
         return current;
     }
