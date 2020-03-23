@@ -108,14 +108,64 @@ TEST_CASE("BIterators in find function", "[BTree]") {
         }
 
         std::string iterator_result;
-        int counter = 0;
-        auto it = tree->find(0);
+        auto it = tree->begin();
         while(it != tree->end()) {
             iterator_result += std::to_string(*it);
-            counter++;
             ++it;
         }
 
         REQUIRE(iterator_result == tree_result);
     }
+}
+
+TEST_CASE("Begin, rbegin") {
+    std::shared_ptr<BTree<int>> tree = std::make_shared<BTree<int>>(3);
+
+    for(int i = 0; i < 500; i++) {
+        tree->insert(i);
+    }
+
+    SECTION("Begin") {
+        REQUIRE(*tree->begin() == *tree->find(0));
+    }
+
+    SECTION("rbegin") {
+        REQUIRE(*tree->rbegin() == *tree->find(499));
+    }
+
+}
+
+TEST_CASE("Deletion", "[BTree]") {
+    std::shared_ptr<BTree<int>> tree = std::make_shared<BTree<int>>(3);
+
+    SECTION("Simple insert and delete") {
+        tree->insert(5);
+        REQUIRE(*tree->find(5) == 5);
+        tree->remove(5);
+        REQUIRE(tree->root == nullptr);
+    }
+
+    SECTION("Test remove with BIterators") {
+
+        std::string tree_result;
+        for(int i = 0; i < 500; i++) {
+            tree->insert(i);
+            if(i != 10 && i != 169)
+                tree_result += std::to_string(i);
+        }
+
+        tree->remove(10);
+        tree->remove(169);
+
+        std::string iterator_result;
+        auto it = tree->find(0);
+        while(it != tree->end()) {
+            iterator_result += std::to_string(*it);
+            ++it;
+        }
+
+        REQUIRE(iterator_result == tree_result);
+    }
+
+
 }
