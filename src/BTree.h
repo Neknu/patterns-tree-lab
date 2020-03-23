@@ -26,19 +26,11 @@ public:
     BIterator<T> rbegin() const noexcept;
     BIterator<T> rend() const noexcept;
 
-    static int getParentIndex(std::shared_ptr<BNode> child);
-    BIterator<T> findInNode(std::shared_ptr<BNode> current, const T& key) const;
-
-
 public:
     int min_degree;
 
 class BNode : public std::enable_shared_from_this<BNode>, public Tree<T>::Node {
     public:
-
-        std::shared_ptr<BNode> getptr() {
-            return this->shared_from_this();
-        }
         explicit BNode(bool is_leaf, int min_degree);
         ~BNode() {
             keys.clear();
@@ -51,6 +43,10 @@ class BNode : public std::enable_shared_from_this<BNode>, public Tree<T>::Node {
         void print();
 
         void insertNonFull(const T& key);
+
+        BIterator<T> findInNode(const T& key);
+
+        int getParentIndex();
 
         // A utility function to split the child `child` of this node. `index` is index of child in
         // child array children[].  The Child y must be full when this function is called
