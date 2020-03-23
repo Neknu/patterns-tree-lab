@@ -221,13 +221,14 @@ void BTree<T>::BNode::splitChild(int ind, std::shared_ptr<BNode> child) {
     for (int j = 0; j < min_degree - 1; j++)
         new_node->keys.push_back(child->keys[j + min_degree]);
 
+
     if (!child->is_leaf) {
         for (int j = 0; j < min_degree; j++)
             new_node->children.push_back(child->children[j + min_degree]);
     }
 
-    // Reduce the number of keys in y
     child->keys.resize(min_degree - 1);
+    child->children.resize(min_degree);
     children.insert(children.begin() + ind + 1, new_node);
     new_node->parent = child->parent;
 
