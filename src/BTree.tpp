@@ -101,8 +101,9 @@ BIterator<T> BTree<T>::begin() const noexcept {
     auto temp = std::dynamic_pointer_cast<BNode>(Tree<T>::root);
     temp->index = 0;
 
-    while (temp->previous() != nullptr){
-        temp = std::dynamic_pointer_cast<BNode>(temp->previous());
+    while (!temp->is_leaf){
+        temp = temp->children[0];
+        temp->index = 0;
     }
 
     return BIterator<T>(temp, std::make_shared<ForwardIteration<T>>());
@@ -116,10 +117,11 @@ BIterator<T> BTree<T>::end() const noexcept {
 template<typename T>
 BIterator<T> BTree<T>::rbegin() const noexcept {
     auto temp = std::dynamic_pointer_cast<BNode>(Tree<T>::root);
-    temp->index = 0;
+    temp->index = temp->keys.size() - 1;
 
     while(temp->next() != nullptr){
-        temp = std::dynamic_pointer_cast<BNode>(temp->next());
+        temp = temp->children[temp->keys.size() - 1];
+        temp->index = temp->keys.size() - 1;
     }
 
     return BIterator<T>(temp, std::make_shared<ReverseIteration<T>>());
