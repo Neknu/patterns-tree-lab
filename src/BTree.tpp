@@ -353,3 +353,34 @@ void BTree<T>::BNode::removeFromNonLeaf(int idx) {
     }
 }
 
+template<typename T>
+int BTree<T>::BNode::getPred(int idx) {
+    this->index = idx;
+    auto prev = std::dynamic_pointer_cast<BNode>(this->previous());
+    return prev->index;
+}
+
+template<typename T>
+int BTree<T>::BNode::getSucc(int idx) {
+    this->index = idx;
+    auto next = std::dynamic_pointer_cast<BNode>(this->next());
+    return next->index;
+}
+
+template<typename T>
+void BTree<T>::BNode::fill(int idx) {
+    if (idx != 0 && children[idx - 1]->n >= min_degree)
+        borrowFromPrev(idx);
+
+    else if (idx != keys.size() && children[idx + 1]->keys.size() >= min_degree)
+        borrowFromNext(idx);
+
+    else
+    {
+        if (idx != keys.size())
+            merge(idx);
+        else
+            merge(idx - 1);
+    }
+}
+
