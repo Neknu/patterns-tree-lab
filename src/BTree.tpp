@@ -384,3 +384,77 @@ void BTree<T>::BNode::fill(int idx) {
     }
 }
 
+template<typename T>
+void BTree<T>::BNode::borrowFromPrev(int idx) {
+    std::shared_ptr<BNode> child = children[idx];
+    std::shared_ptr<BNode> sibling = children[idx - 1];
+
+    // The last key from C[idx-1] goes up to the parent and key[idx-1]
+    // from parent is inserted as the first key in C[idx]. Thus, the  loses
+    // sibling one key and child gains one key
+
+    child->keys.insert(child->keys.begin(), keys[idx-1]);
+
+    // If C[idx] is not a leaf, move all its child pointers one step ahead
+    if (!child->is_leaf)
+    {
+        child->children.insert(child->children.begin(), sibling->children[sibling->keys.size()]);
+        sibling->children.pop_back();
+    }
+
+    // Moving the key from the sibling to the parent
+    // This reduces the number of keys in the sibling
+    keys[idx-1] = sibling->keys[sibling->keys.size()-1];
+    sibling->keys.pop_back();
+}
+
+template<typename T>
+void BTree<T>::BNode::borrowFromNext(int idx) {
+    std::shared_ptr<BNode> child = children[idx];
+    std::shared_ptr<BNode> sibling = children[idx + 1];
+
+    // keys[idx] is inserted as the last key in C[idx]
+    child->keys.push_back(keys[idx]);
+
+    if (!(child->is_leaf))
+        child->children.push_back(sibling->children[0]);
+
+    //The first key from sibling is inserted into keys[idx]
+    keys[idx] = sibling->keys[0];
+
+    sibling->keys.erase(sibling->keys.begin());
+
+    if (!sibling->leaf)
+    {
+        sibling->children.erase(sibling->children.begin());
+    }
+}
+
+template<typename T>
+void BTree<T>::BNode::merge(int idx) {
+    std::shared_ptr<BNode> child = children[idx];
+    std::shared_ptr<BNode> sibling = children[idx + 1];
+
+    // Pulling a key from the current node and inserting it into (t-1)th
+    // position of C[idx]
+    child->keys.push_back(keys[idx]);
+
+    // Copying the keys from C[idx+1] to C[idx] at the end
+    for (int i = 0; i < sibling->n; ++i)
+        child->keys.push_back(sibling->keys[i]);
+
+    // Copying the child pointers from C[idx+1] to C[idx]
+    if (!child->leaf)
+    {
+        for(int i=0; i<=sibling->n; ++i)
+            child->children.push_back(sibling->children[i]);
+    }
+
+    // to erase the gap created by moving keys[idx] to C[idx]
+    keys.erase(keys.begin() + idx);
+
+    // Moving the child pointers after (idx+1) in the current node one
+    // step before
+    children.erase(children.begin() + idx + 1);
+}
+
