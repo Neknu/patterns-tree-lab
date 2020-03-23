@@ -421,6 +421,7 @@ void BTree<T>::BNode::borrowFromPrev(int idx) {
     // If C[idx] is not a leaf, move all its child pointers one step ahead
     if (!child->is_leaf) {
         child->children.insert(child->children.begin(), sibling->children[sibling->keys.size()]);
+        child->children[0]->parent = child;
         sibling->children.pop_back();
     }
 
@@ -438,8 +439,10 @@ void BTree<T>::BNode::borrowFromNext(int idx) {
     // keys[idx] is inserted as the last key in C[idx]
     child->keys.push_back(keys[idx]);
 
-    if (!(child->is_leaf))
+    if (!(child->is_leaf)) {
         child->children.push_back(sibling->children[0]);
+        child->children[child->children.size() - 1]->parent = child;
+    }
 
     //The first key from sibling is inserted into keys[idx]
     keys[idx] = sibling->keys[0];
@@ -466,8 +469,10 @@ void BTree<T>::BNode::merge(int idx) {
 
     // Copying the child pointers from C[idx+1] to C[idx]
     if (!child->is_leaf) {
-        for(int i=0; i<=sibling->keys.size(); ++i)
+        for(int i=0; i<=sibling->keys.size(); ++i) {
             child->children.push_back(sibling->children[i]);
+            child->children[child->children.size() - 1]->parent = child;
+        }
     }
 
     // to erase the gap created by moving keys[idx] to C[idx]
