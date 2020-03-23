@@ -55,14 +55,9 @@ class BNode : public std::enable_shared_from_this<BNode>, public Tree<T>::Node {
         // or equal to k
         int findKey(int key);
 
-        // A utility function to split the child y of this node. i is index
-        // of y in child array C[].  The Child y must be full when this
-        // function is called
-//        void splitChild(int i, BTreeNode *y);
-
         // A wrapper function to remove the key k in subtree rooted with
         // this node.
-        void remove(int k);
+        void remove(int key);
 
         // A function to remove the key present in idx-th position in
         // this node which is a leaf

@@ -2,6 +2,7 @@
 #include "Tree.h"
 
 #include <iostream>
+#include <assert.h>
 
 
 template<typename T>
@@ -251,7 +252,6 @@ std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::previous() noexcept {
             auto current = this->shared_from_this();
             // move up until there is prev value or root
             while(current->parent && current->getParentIndex() == 0) {
-//            while(current->parent) {
                 current = current->parent;
             }
             if(current->parent) {
@@ -279,5 +279,77 @@ int BTree<T>::BNode::findKey(int key) {
     while (idx < keys.size() && keys[idx] < key)
         ++idx;
     return idx;
+}
+
+template<typename T>
+void BTree<T>::BNode::remove(int key) {
+    int idx = findKey(key);
+
+    // The key to be removed is present in this node
+    if (idx < keys.size && keys[idx] == key)
+    {
+
+        // If the node is a leaf node - removeFromLeaf is called
+        // Otherwise, removeFromNonLeaf function is called
+        if (is_leaf)
+            removeFromLeaf(idx);
+        else
+            removeFromNonLeaf(idx);
+    }
+    else
+    {
+        // If this node is a leaf node, then the key is not present in tree
+        // Error
+        assert(!is_leaf);
+
+        // The key to be removed is present in the sub-tree rooted with this node
+        // The flag indicates whether the key is present in the sub-tree rooted
+        // with the last child of this node
+        bool flag = idx == keys.size();
+
+        // If the child where the key is supposed to exist has less that t keys,
+        // we fill that child
+        if (children[idx]->keys.size() < min_degree)
+            fill(idx);
+
+        // If the last child has been merged, it must have merged with the previous
+        // child and so we recurse on the (idx-1)th child. Else, we recurse on the
+        // (idx)th child which now has atleast t keys
+        if (flag && idx > keys.size())
+            children[idx-1]->remove(key);
+        else
+            children[idx]->remove(key);
+    }
+}
+
+template<typename T>
+void BTree<T>::BNode::removeFromLeaf(int idx) {
+    keys.erase(keys.begin() + idx);
+}
+
+template<typename T>
+void BTree<T>::BNode::removeFromNonLeaf(int idx) {
+
+    int key = keys[idx];
+
+    if (children[idx]->keys.size() >= min_degree)
+    {
+        int pred = getPred(idx);
+        keys[idx] = pred;
+        children[idx]->remove(pred);
+    }
+
+    else if  (children[idx+1]->keys.size() >= min_degree)
+    {
+        int succ = getSucc(idx);
+        keys[idx] = succ;
+        children[idx+1]->remove(succ);
+    }
+
+    else
+    {
+        merge(idx);
+        children[idx]->remove(key);
+    }
 }
 

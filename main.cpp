@@ -7,28 +7,28 @@
 
 int main () {
 //    SplayTree<int> tree;
-    BTree<int> tree(3);
-    tree.insert(4);
-    tree.insert(499);
-    tree.insert(5);
-    tree.insert(11);
-    tree.insert(12);
-    tree.insert(14);
-    tree.insert(23);
-    tree.insert(12);
-    tree.insert(14);
-    tree.insert(444);
-    tree.insert(12);
-    tree.insert(14);
-    auto it = tree.find(5);
-    while(it != tree.end()) {
+    std::shared_ptr<BTree<int>> tree = std::make_shared<BTree<int>>(3);
+    tree->insert(4);
+    tree->insert(499);
+    tree->insert(5);
+    tree->insert(11);
+    tree->insert(12);
+    tree->insert(14);
+    tree->insert(23);
+    tree->insert(12);
+    tree->insert(14);
+    tree->insert(444);
+    tree->insert(12);
+    tree->insert(14);
+    auto it = tree->find(5);
+    while(it != tree->end()) {
         std::cout << it.operator*() << " ";
         ++it;
     }
 
-    tree.print();
+    tree->print();
 
-    BalancedTreeContext<BTree, int> context(std::make_shared<BTree<int>>(3));
+    BalancedTreeContext<BTree, int> context(tree);
 
 
 
