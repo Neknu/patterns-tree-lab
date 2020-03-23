@@ -35,8 +35,8 @@ class SplayNode : public Tree<T>::Node {
         public:
             explicit SplayNode(const T& key);
 
-            std::shared_ptr<typename Tree<T>::Node> next() const noexcept override;
-            std::shared_ptr<typename Tree<T>::Node> previous() const noexcept override;
+            std::shared_ptr<typename Tree<T>::Node> next() noexcept override;
+            std::shared_ptr<typename Tree<T>::Node> previous() noexcept override;
 
             [[nodiscard]] bool isLeftSon() const noexcept;
             [[nodiscard]] bool isRightSon() const noexcept;

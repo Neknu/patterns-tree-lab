@@ -52,7 +52,7 @@ template<typename T>
 BIterator<T> BTree<T>::find(const T &key) const noexcept{
     if(Tree<T>::root) {
         auto temp_root = std::dynamic_pointer_cast<BNode>(Tree<T>::root);
-        return findInNode(temp_root, key);
+        return temp_root->findInNode(key);
     }
     return BIterator<T>(nullptr, std::make_shared<ForwardIteration<T>>());
 }
@@ -119,7 +119,8 @@ BTree<T>::BTree(int _min_degree) : Tree<T>(){
 }
 
 template<typename T>
-int BTree<T>::getParentIndex(std::shared_ptr<BNode> child) {
+int BTree<T>::BNode::getParentIndex() {
+    auto child = this->shared_from_this();
     if(!child->parent) return -1;
 
     int counter = 0;
@@ -132,8 +133,9 @@ int BTree<T>::getParentIndex(std::shared_ptr<BNode> child) {
 }
 
 template<typename T>
-BIterator<T> BTree<T>::findInNode(std::shared_ptr<BNode> current, const T &key) const {
+BIterator<T> BTree<T>::BNode::findInNode(const T &key) {
     int i = 0;
+    auto current = this->shared_from_this();
     while (i < current->keys.size() && key > current->keys[i])
         i++;
 
@@ -146,7 +148,7 @@ BIterator<T> BTree<T>::findInNode(std::shared_ptr<BNode> current, const T &key) 
     if (current->is_leaf)
         return BIterator<T>(nullptr, std::make_shared<ForwardIteration<T>>());
 
-    return findInNode(current->children[i], key);
+    return current->children[i]->findInNode(key);
 }
 
 
@@ -211,44 +213,49 @@ void BTree<T>::BNode::splitChild(int ind, std::shared_ptr<BNode> child) {
 }
 
 template<typename T>
-std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::next() const noexcept {
-    if(this->is_leaf && this->parent) {
-        if(index == 0) {
-            auto current = this->parent->children[0];
+std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::next() noexcept {
+    if(this->is_leaf) {
+        if(this->index == this->keys.size() - 1  && this->parent) {
+            auto current = this->shared_from_this();
             // move up until there is prev value or root
-            while(current->parent && BTree<T>::getParentIndex(current) == 0) {
+            while(current->parent && current->parent->keys.size() == current->getParentIndex()) {
                 current = current->parent;
             }
-            if(current->parent)
+            if(current->parent) {
+                current->parent->index = current->getParentIndex();
                 return current->parent;
+            }
             return nullptr;
         }
-        this->getptr()->index += 1;
-        return this->getptr();
+        auto current = this->shared_from_this();
+        current->index += 1;
+        return current;
     }
-    auto current = this->children[this->index];
+    auto current = this->children[this->index + 1];
     while (!current->is_leaf)
-        current = current->children[current->keys.size()];
+        current = current->children[0];
 
-    // Return the last key of the leaf
-    current->index = current->keys.size() - 1;
+    current->index = 0;
     return current;
 }
 
 template<typename T>
-std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::previous() const noexcept {
+std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::previous() noexcept {
     if(this->is_leaf) {
-        auto current = this->parent->children[0];
-        if(this->index == 0) {
+        if(this->index == 0 && this->parent) {
+            auto current = this->shared_from_this();
             // move up until there is prev value or root
-            while(current->parent && BTree<T>::getParentIndex(current) == 0) {
+            while(current->parent && current->getParentIndex() == 0) {
 //            while(current->parent) {
                 current = current->parent;
             }
-            if(current->parent)
+            if(current->parent) {
+                current->parent->index = current->getParentIndex();
                 return current->parent;
+            }
             return nullptr;
         }
+        auto current = this->shared_from_this();
         current->index -= 1;
         return current;
     }

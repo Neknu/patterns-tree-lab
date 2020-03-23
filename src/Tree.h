@@ -15,8 +15,8 @@ public:
 
     class Node{
     public:
-        virtual std::shared_ptr<Node> next() const noexcept = 0;
-        virtual std::shared_ptr<Node> previous() const noexcept = 0;
+        virtual std::shared_ptr<Node> next() noexcept = 0;
+        virtual std::shared_ptr<Node> previous() noexcept = 0;
     };
 
     std::shared_ptr<Node> root;
