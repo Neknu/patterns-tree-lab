@@ -120,7 +120,7 @@ BIterator<T> BTree<T>::rbegin() const noexcept {
     temp->index = temp->keys.size() - 1;
 
     while(temp->next() != nullptr){
-        temp = temp->children[temp->keys.size() - 1];
+        temp = temp->children[temp->keys.size()];
         temp->index = temp->keys.size() - 1;
     }
 
@@ -323,7 +323,9 @@ void BTree<T>::BNode::remove(int key) {
     {
         // If this node is a leaf node, then the key is not present in tree
         // Error
-        assert(!is_leaf);
+        if(is_leaf)
+            return;
+//        assert(!is_leaf);
 
         // The key to be removed is present in the sub-tree rooted with this node
         // The flag indicates whether the key is present in the sub-tree rooted
