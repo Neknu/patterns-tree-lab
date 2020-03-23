@@ -2,7 +2,7 @@
 #include "Tree.h"
 
 #include <iostream>
-#include <assert.h>
+#include <cassert>
 
 
 template<typename T>
@@ -46,7 +46,23 @@ void BTree<T>::insert(const T &key) {
 
 template<typename T>
 void BTree<T>::remove(const T &key) noexcept{
+    if (Tree<T>::root == nullptr) {
+//        std::cout << "The tree is empty\n";
+        return;
+    }
 
+    auto root = std::dynamic_pointer_cast<BNode>(Tree<T>::root);
+    // Call the remove function for root
+    root->remove(key);
+
+    // If the root node has 0 keys, make its first child as the new root
+    //  if it has a child, otherwise set root as NULL
+    if (root->keys.size() == 0) {
+        if (root->is_leaf)
+            Tree<T>::root = nullptr;
+        else
+            Tree<T>::root = root->children[0];
+    }
 }
 
 template<typename T>
@@ -283,11 +299,10 @@ int BTree<T>::BNode::findKey(int key) {
 
 template<typename T>
 void BTree<T>::BNode::remove(int key) {
-    int idx = findKey(key);
+    int idx = this->findKey(key);
 
     // The key to be removed is present in this node
-    if (idx < keys.size && keys[idx] == key)
-    {
+    if (idx < keys.size() && keys[idx] == key) {
 
         // If the node is a leaf node - removeFromLeaf is called
         // Otherwise, removeFromNonLeaf function is called
@@ -332,18 +347,16 @@ void BTree<T>::BNode::removeFromNonLeaf(int idx) {
 
     int key = keys[idx];
 
-    if (children[idx]->keys.size() >= min_degree)
-    {
-        int pred = getPred(idx);
+    if (children[idx]->keys.size() >= min_degree) {
+        T pred = getPred(idx);
         keys[idx] = pred;
         children[idx]->remove(pred);
     }
 
-    else if  (children[idx+1]->keys.size() >= min_degree)
-    {
-        int succ = getSucc(idx);
+    else if  (children[idx + 1]->keys.size() >= min_degree) {
+        T succ = getSucc(idx);
         keys[idx] = succ;
-        children[idx+1]->remove(succ);
+        children[idx + 1]->remove(succ);
     }
 
     else
@@ -354,22 +367,22 @@ void BTree<T>::BNode::removeFromNonLeaf(int idx) {
 }
 
 template<typename T>
-int BTree<T>::BNode::getPred(int idx) {
+T BTree<T>::BNode::getPred(int idx) {
     this->index = idx;
     auto prev = std::dynamic_pointer_cast<BNode>(this->previous());
-    return prev->index;
+    return prev->keys[prev->index];
 }
 
 template<typename T>
-int BTree<T>::BNode::getSucc(int idx) {
+T BTree<T>::BNode::getSucc(int idx) {
     this->index = idx;
     auto next = std::dynamic_pointer_cast<BNode>(this->next());
-    return next->index;
+    return next->keys[next->index];
 }
 
 template<typename T>
 void BTree<T>::BNode::fill(int idx) {
-    if (idx != 0 && children[idx - 1]->n >= min_degree)
+    if (idx != 0 && children[idx - 1]->keys.size() >= min_degree)
         borrowFromPrev(idx);
 
     else if (idx != keys.size() && children[idx + 1]->keys.size() >= min_degree)
@@ -396,8 +409,7 @@ void BTree<T>::BNode::borrowFromPrev(int idx) {
     child->keys.insert(child->keys.begin(), keys[idx-1]);
 
     // If C[idx] is not a leaf, move all its child pointers one step ahead
-    if (!child->is_leaf)
-    {
+    if (!child->is_leaf) {
         child->children.insert(child->children.begin(), sibling->children[sibling->keys.size()]);
         sibling->children.pop_back();
     }
@@ -424,8 +436,7 @@ void BTree<T>::BNode::borrowFromNext(int idx) {
 
     sibling->keys.erase(sibling->keys.begin());
 
-    if (!sibling->leaf)
-    {
+    if (!sibling->is_leaf) {
         sibling->children.erase(sibling->children.begin());
     }
 }
@@ -440,13 +451,12 @@ void BTree<T>::BNode::merge(int idx) {
     child->keys.push_back(keys[idx]);
 
     // Copying the keys from C[idx+1] to C[idx] at the end
-    for (int i = 0; i < sibling->n; ++i)
+    for (int i = 0; i < sibling->keys.size(); ++i)
         child->keys.push_back(sibling->keys[i]);
 
     // Copying the child pointers from C[idx+1] to C[idx]
-    if (!child->leaf)
-    {
-        for(int i=0; i<=sibling->n; ++i)
+    if (!child->is_leaf) {
+        for(int i=0; i<=sibling->keys.size(); ++i)
             child->children.push_back(sibling->children[i]);
     }
 

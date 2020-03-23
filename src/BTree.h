@@ -69,11 +69,11 @@ class BNode : public std::enable_shared_from_this<BNode>, public Tree<T>::Node {
 
         // A function to get the predecessor of the key- where the key
         // is present in the idx-th position in the node
-        int getPred(int idx);
+        T getPred(int idx);
 
         // A function to get the successor of the key- where the key
         // is present in the idx-th position in the node
-        int getSucc(int idx);
+        T getSucc(int idx);
 
         // A function to fill up the child node present in the idx-th
         // position in the C[] array if that child has less than t-1 keys

@@ -20,12 +20,16 @@ int main () {
     tree->insert(444);
     tree->insert(12);
     tree->insert(14);
-    auto it = tree->find(5);
-    while(it != tree->end()) {
-        std::cout << it.operator*() << " ";
-        ++it;
-    }
-
+//    auto it = tree->find(5);
+//    while(it != tree->end()) {
+//        std::cout << *it << " ";
+//        ++it;
+//    }
+//    std::cout << std::endl;
+//
+    tree->print();
+    std::cout << std::endl;
+    tree->remove(12);
     tree->print();
 
     BalancedTreeContext<BTree, int> context(tree);
