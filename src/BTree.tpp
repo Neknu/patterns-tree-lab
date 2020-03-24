@@ -152,7 +152,7 @@ int BTree<T>::BNode::getParentIndex() {
 }
 
 template<typename T>
-std::shared_ptr<typename BTree<T>::BNode> BTree<T>::BNode::find(int key) {
+std::shared_ptr<typename BTree<T>::BNode> BTree<T>::BNode::find(T key) {
     int i = 0;
     auto current = this->shared_from_this();
     while (i < current->keys.size() && key > current->keys[i])
@@ -298,7 +298,7 @@ std::shared_ptr<typename Tree<T>::Node> BTree<T>::BNode::previous() noexcept {
 }
 
 template<typename T>
-int BTree<T>::BNode::findKey(int key) {
+int BTree<T>::BNode::findKey(T key) {
     int idx=0;
     while (idx < keys.size() && keys[idx] < key)
         ++idx;
@@ -306,7 +306,7 @@ int BTree<T>::BNode::findKey(int key) {
 }
 
 template<typename T>
-void BTree<T>::BNode::remove(int key) {
+void BTree<T>::BNode::remove(T key) {
     int idx = this->findKey(key);
 
     // The key to be removed is present in this node
@@ -355,7 +355,7 @@ void BTree<T>::BNode::removeFromLeaf(int idx) {
 template<typename T>
 void BTree<T>::BNode::removeFromNonLeaf(int idx) {
 
-    int key = keys[idx];
+    T key = keys[idx];
 
     if (children[idx]->keys.size() >= min_degree) {
         T pred = getPred(idx);

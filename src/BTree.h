@@ -49,15 +49,15 @@ class BNode : public std::enable_shared_from_this<BNode>, public Tree<T>::Node {
         int getParentIndex();
 
         // A function to search a key in subtree rooted with this node.
-        std::shared_ptr<BNode> find(int key);   // returns NULL if k is not present.
+        std::shared_ptr<BNode> find(T key);   // returns NULL if k is not present.
 
         // A function that returns the index of the first key that is greater
         // or equal to k
-        int findKey(int key);
+        int findKey(T key);
 
         // A wrapper function to remove the key k in subtree rooted with
         // this node.
-        void remove(int key);
+        void remove(T key);
 
         // A function to remove the key present in idx-th position in
         // this node which is a leaf
