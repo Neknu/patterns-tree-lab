@@ -167,5 +167,32 @@ TEST_CASE("Deletion", "[BTree]") {
         REQUIRE(iterator_result == tree_result);
     }
 
+    SECTION("Insert and delete all") {
 
+        for(int i = 0; i < 500; i++) {
+            tree->insert(i);
+        }
+
+
+        for(int i = 0; i < 500; i++) {
+            tree->remove(i);
+        }
+
+        REQUIRE(tree->root == nullptr);
+    }
+}
+
+TEST_CASE("BTree min_degree 7 and strings insertion, deletion and finding", "[BTree]") {
+    std::shared_ptr<BTree<std::string>> tree = std::make_shared<BTree<std::string>>(7);
+
+    for(int i = 0; i < 5000; i++)
+        tree->insert(std::to_string(i) + std::to_string(2691 - i));
+
+    std::string s = "02691";
+    REQUIRE(*tree->find(s) == "02691");
+
+    for(int i = 0; i < 5000; i++)
+        tree->remove(std::to_string(i) + std::to_string(2691 - i));
+
+    REQUIRE(tree->root == nullptr);
 }
