@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classBTree_1_1BNode.html" title="BTree\&lt; T \&gt;::BNode" alt="" coords="244,5,381,32"/>
+<area shape="rect" id="node3" href="$classTree_1_1Node.html" title="Tree\&lt; T \&gt;::Node" alt="" coords="29,56,148,83"/>
+<area shape="rect" id="node4" href="$classBplusTree_1_1BplusNode.html" title="BplusTree\&lt; T \&gt;::BplusNode" alt="" coords="220,56,405,83"/>
+<area shape="rect" id="node5" href="$classSplayTree_1_1SplayNode.html" title="SplayTree\&lt; T \&gt;::SplayNode" alt="" coords="220,107,405,133"/>
+</map>

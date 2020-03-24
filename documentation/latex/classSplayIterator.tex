@@ -1,0 +1,56 @@
+\hypertarget{classSplayIterator}{}\section{Splay\+Iterator$<$ T $>$ Class Template Reference}
+\label{classSplayIterator}\index{Splay\+Iterator$<$ T $>$@{Splay\+Iterator$<$ T $>$}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSplayIterator_a41a5dce71eee4a8b82025efe547ae1aa}\label{classSplayIterator_a41a5dce71eee4a8b82025efe547ae1aa}} 
+{\bfseries Splay\+Iterator} (std\+::shared\+\_\+ptr$<$ typename \hyperlink{classSplayTree}{Splay\+Tree}$<$ T $>$\+::Splay\+Node $>$ root, std\+::shared\+\_\+ptr$<$ \hyperlink{classIterationPolicy}{Iteration\+Policy}$<$ T $>$$>$ policy)
+\item 
+\mbox{\Hypertarget{classSplayIterator_ab25826d70fa08b45174d7006b1c7f43e}\label{classSplayIterator_ab25826d70fa08b45174d7006b1c7f43e}} 
+virtual const T \& {\bfseries operator$\ast$} () const noexcept
+\item 
+\mbox{\Hypertarget{classSplayIterator_a7fd3ee4bfaac3622600cdf85f4752327}\label{classSplayIterator_a7fd3ee4bfaac3622600cdf85f4752327}} 
+virtual bool {\bfseries operator!=} (const \hyperlink{classSplayIterator}{Splay\+Iterator} \&other) noexcept
+\item 
+\mbox{\Hypertarget{classSplayIterator_aa346bf707e077d808dfc3a0cc090ad69}\label{classSplayIterator_aa346bf707e077d808dfc3a0cc090ad69}} 
+virtual bool {\bfseries operator==} (const \hyperlink{classSplayIterator}{Splay\+Iterator} \&other) noexcept
+\item 
+\mbox{\Hypertarget{classSplayIterator_a5493e9ce13e85ac77ed47fef6fafdb0e}\label{classSplayIterator_a5493e9ce13e85ac77ed47fef6fafdb0e}} 
+\hyperlink{classSplayIterator}{Splay\+Iterator} \& {\bfseries operator++} () noexcept
+\item 
+\mbox{\Hypertarget{classSplayIterator_a9566d71720c54a8c1ac4edc0117413d0}\label{classSplayIterator_a9566d71720c54a8c1ac4edc0117413d0}} 
+\hyperlink{classSplayIterator}{Splay\+Iterator} {\bfseries operator+} (int n) const noexcept
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSplayIterator_a3a6e76a1cce8cb5127c68de23bbde2b6}\label{classSplayIterator_a3a6e76a1cce8cb5127c68de23bbde2b6}} 
+std\+::shared\+\_\+ptr$<$ typename \hyperlink{classSplayTree}{Splay\+Tree}$<$ T $>$\+::Splay\+Node $>$ {\bfseries curr\+\_\+node}
+\item 
+\mbox{\Hypertarget{classSplayIterator_ada3c3096d608ed5e8bed651c1b9f8df6}\label{classSplayIterator_ada3c3096d608ed5e8bed651c1b9f8df6}} 
+std\+::shared\+\_\+ptr$<$ \hyperlink{classIterationPolicy}{Iteration\+Policy}$<$ T $>$ $>$ {\bfseries policy}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classSplayIterator_a151ca71f2c751d8a163f3f99ccf6cec9}{Tree$<$ T $>$}
+\begin{DoxyCompactList}\small\item\em \+: Allows us to write specific iterators for trees, and define iterating behaviour with \hyperlink{classIterationPolicy}{Iteration\+Policy} (Mix of Bridge and Strategy Patterns) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classSplayIterator_a151ca71f2c751d8a163f3f99ccf6cec9}\label{classSplayIterator_a151ca71f2c751d8a163f3f99ccf6cec9}} 
+\index{Splay\+Iterator@{Splay\+Iterator}!Tree$<$ T $>$@{Tree$<$ T $>$}}
+\index{Tree$<$ T $>$@{Tree$<$ T $>$}!Splay\+Iterator@{Splay\+Iterator}}
+\subsubsection{\texorpdfstring{Tree$<$ T $>$}{Tree< T >}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+friend class \hyperlink{classTree}{Tree}$<$ T $>$\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\+: Allows us to write specific iterators for trees, and define iterating behaviour with \hyperlink{classIterationPolicy}{Iteration\+Policy} (Mix of Bridge and Strategy Patterns) 
+
+Base class-\/interface for iterators 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/Splay\+Iterator.\+hpp\end{DoxyCompactItemize}
