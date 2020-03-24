@@ -1,0 +1,84 @@
+\hypertarget{classBTree}{}\section{B\+Tree$<$ T $>$ Class Template Reference}
+\label{classBTree}\index{B\+Tree$<$ T $>$@{B\+Tree$<$ T $>$}}
+
+
+Class for implementing B \hyperlink{classTree}{Tree}.  
+
+
+
+
+{\ttfamily \#include $<$B\+Tree.\+h$>$}
+
+
+
+Inheritance diagram for B\+Tree$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=147pt]{classBTree__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for B\+Tree$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=147pt]{classBTree__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classBTree_1_1BNode}{B\+Node}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBTree_a16c152bc0c234a02359d259c5dd1d959}\label{classBTree_a16c152bc0c234a02359d259c5dd1d959}} 
+{\bfseries B\+Tree} (int min\+\_\+degree)
+\item 
+\mbox{\Hypertarget{classBTree_a6b821651c388e302d1fb43551bb67232}\label{classBTree_a6b821651c388e302d1fb43551bb67232}} 
+void {\bfseries insert} (const T \&key) override
+\item 
+\mbox{\Hypertarget{classBTree_aef3581a1c5e11ac1c037d66a27cbcb94}\label{classBTree_aef3581a1c5e11ac1c037d66a27cbcb94}} 
+void {\bfseries remove} (const T \&key) noexcept override
+\item 
+\mbox{\Hypertarget{classBTree_a4f31693f9077aad3266b7f13625b9ede}\label{classBTree_a4f31693f9077aad3266b7f13625b9ede}} 
+void {\bfseries print} () const noexcept override
+\item 
+\mbox{\Hypertarget{classBTree_ac0fac7271e38a543aff042db79be9c36}\label{classBTree_ac0fac7271e38a543aff042db79be9c36}} 
+\hyperlink{classBIterator}{B\+Iterator}$<$ T $>$ {\bfseries find} (const T \&key) const noexcept
+\item 
+\mbox{\Hypertarget{classBTree_aae48f3719f14f2170641cf204a9d531c}\label{classBTree_aae48f3719f14f2170641cf204a9d531c}} 
+\hyperlink{classBIterator}{B\+Iterator}$<$ T $>$ {\bfseries begin} () const noexcept
+\item 
+\mbox{\Hypertarget{classBTree_a3115f4378da1a0fd49e73a5dbecf9822}\label{classBTree_a3115f4378da1a0fd49e73a5dbecf9822}} 
+\hyperlink{classBIterator}{B\+Iterator}$<$ T $>$ {\bfseries end} () const noexcept
+\item 
+\mbox{\Hypertarget{classBTree_a3a24bc55b80013d9fcd57d5589aad413}\label{classBTree_a3a24bc55b80013d9fcd57d5589aad413}} 
+\hyperlink{classBIterator}{B\+Iterator}$<$ T $>$ {\bfseries rbegin} () const noexcept
+\item 
+\mbox{\Hypertarget{classBTree_af024f4b5201a49115da494161d4dcbce}\label{classBTree_af024f4b5201a49115da494161d4dcbce}} 
+\hyperlink{classBIterator}{B\+Iterator}$<$ T $>$ {\bfseries rend} () const noexcept
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBTree_a67674b9ddf809c4f518185888f0918e4}\label{classBTree_a67674b9ddf809c4f518185888f0918e4}} 
+int {\bfseries min\+\_\+degree}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class B\+Tree$<$ T $>$}
+
+Class for implementing B \hyperlink{classTree}{Tree}. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/B\+Iterator.\+hpp\item 
+src/B\+Tree.\+h\end{DoxyCompactItemize}

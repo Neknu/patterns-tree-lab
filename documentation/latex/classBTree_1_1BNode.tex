@@ -1,0 +1,108 @@
+\hypertarget{classBTree_1_1BNode}{}\section{B\+Tree$<$ T $>$\+:\+:B\+Node Class Reference}
+\label{classBTree_1_1BNode}\index{B\+Tree$<$ T $>$\+::\+B\+Node@{B\+Tree$<$ T $>$\+::\+B\+Node}}
+
+
+Inheritance diagram for B\+Tree$<$ T $>$\+:\+:B\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{classBTree_1_1BNode__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for B\+Tree$<$ T $>$\+:\+:B\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{classBTree_1_1BNode__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a6db3bbcf350e06109f86db08f86fc1d2}\label{classBTree_1_1BNode_a6db3bbcf350e06109f86db08f86fc1d2}} 
+{\bfseries B\+Node} (bool is\+\_\+leaf, int min\+\_\+degree)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a8440e89eab5284dc118c00de4e7e619b}\label{classBTree_1_1BNode_a8440e89eab5284dc118c00de4e7e619b}} 
+std\+::shared\+\_\+ptr$<$ typename \hyperlink{classTree}{Tree}$<$ T $>$\+::\hyperlink{classTree_1_1Node}{Node} $>$ {\bfseries next} () noexcept override
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_aa3909dab0e45cf56b602705b8720e7c0}\label{classBTree_1_1BNode_aa3909dab0e45cf56b602705b8720e7c0}} 
+std\+::shared\+\_\+ptr$<$ typename \hyperlink{classTree}{Tree}$<$ T $>$\+::\hyperlink{classTree_1_1Node}{Node} $>$ {\bfseries previous} () noexcept override
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a8501fb870aca2959c7636bb0ca96424f}\label{classBTree_1_1BNode_a8501fb870aca2959c7636bb0ca96424f}} 
+void {\bfseries print} ()
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a12209859c0d20881dc4197e9c677dfd5}\label{classBTree_1_1BNode_a12209859c0d20881dc4197e9c677dfd5}} 
+void {\bfseries insert\+Non\+Full} (const T \&key)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a0a8c168d152ef320e62c0283c4db3f26}\label{classBTree_1_1BNode_a0a8c168d152ef320e62c0283c4db3f26}} 
+\hyperlink{classBIterator}{B\+Iterator}$<$ T $>$ {\bfseries find\+Iterator} (const T \&key)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a559e979d22e13c7b455fef771af47049}\label{classBTree_1_1BNode_a559e979d22e13c7b455fef771af47049}} 
+int {\bfseries get\+Parent\+Index} ()
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a646808ce526bbf4b5e5df0348fcca8db}\label{classBTree_1_1BNode_a646808ce526bbf4b5e5df0348fcca8db}} 
+std\+::shared\+\_\+ptr$<$ \hyperlink{classBTree_1_1BNode}{B\+Node} $>$ {\bfseries find} (T key)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a53972c6065afd789a1fdb79fe96d25e9}\label{classBTree_1_1BNode_a53972c6065afd789a1fdb79fe96d25e9}} 
+int {\bfseries find\+Key} (T key)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a2e926c4518aecdbb1dcf853431edfb0c}\label{classBTree_1_1BNode_a2e926c4518aecdbb1dcf853431edfb0c}} 
+void {\bfseries remove} (T key)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a1153066a0735afbd355c762795b68222}\label{classBTree_1_1BNode_a1153066a0735afbd355c762795b68222}} 
+void {\bfseries remove\+From\+Leaf} (int idx)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_acea1502de0852161a72a4c11e122e58e}\label{classBTree_1_1BNode_acea1502de0852161a72a4c11e122e58e}} 
+void {\bfseries remove\+From\+Non\+Leaf} (int idx)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_afacc18e039955c714241d33341649656}\label{classBTree_1_1BNode_afacc18e039955c714241d33341649656}} 
+T {\bfseries get\+Pred} (int idx)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_af5d36fa614e035a65758f716f5902d82}\label{classBTree_1_1BNode_af5d36fa614e035a65758f716f5902d82}} 
+T {\bfseries get\+Succ} (int idx)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a20d3152742afa0fbb11e413a0c73ceb9}\label{classBTree_1_1BNode_a20d3152742afa0fbb11e413a0c73ceb9}} 
+void {\bfseries fill} (int idx)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a1ee99a5c0649e19e8a34934ff8dba85b}\label{classBTree_1_1BNode_a1ee99a5c0649e19e8a34934ff8dba85b}} 
+void {\bfseries borrow\+From\+Prev} (int idx)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_acda705e13267fdedbfd27f017668a9bf}\label{classBTree_1_1BNode_acda705e13267fdedbfd27f017668a9bf}} 
+void {\bfseries borrow\+From\+Next} (int idx)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_ac3caae8aac87f7bdce9960a658f9ad87}\label{classBTree_1_1BNode_ac3caae8aac87f7bdce9960a658f9ad87}} 
+void {\bfseries merge} (int idx)
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a0b356b6ac1ec3d8e0cbfb68d9e5f7582}\label{classBTree_1_1BNode_a0b356b6ac1ec3d8e0cbfb68d9e5f7582}} 
+void {\bfseries split\+Child} (int index, std\+::shared\+\_\+ptr$<$ \hyperlink{classBTree_1_1BNode}{B\+Node} $>$ child)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a5fb27046a502d2a28fc539042a1bfd87}\label{classBTree_1_1BNode_a5fb27046a502d2a28fc539042a1bfd87}} 
+std\+::vector$<$ T $>$ {\bfseries keys}
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a3683e8ef7010edede627bdacb9d40025}\label{classBTree_1_1BNode_a3683e8ef7010edede627bdacb9d40025}} 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \hyperlink{classBTree_1_1BNode}{B\+Node} $>$ $>$ {\bfseries children}
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_aeea14a23dfc45f162ecbbc736b24014a}\label{classBTree_1_1BNode_aeea14a23dfc45f162ecbbc736b24014a}} 
+bool {\bfseries is\+\_\+leaf}
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a9a108839cbc75c2c207d97140577bd7c}\label{classBTree_1_1BNode_a9a108839cbc75c2c207d97140577bd7c}} 
+int {\bfseries min\+\_\+degree}
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a9b057ee85c9a950709afaee727515fab}\label{classBTree_1_1BNode_a9b057ee85c9a950709afaee727515fab}} 
+int {\bfseries index}
+\item 
+\mbox{\Hypertarget{classBTree_1_1BNode_a5856f1fc1eb5e7e936d4deb50dc64a3c}\label{classBTree_1_1BNode_a5856f1fc1eb5e7e936d4deb50dc64a3c}} 
+std\+::shared\+\_\+ptr$<$ \hyperlink{classBTree_1_1BNode}{B\+Node} $>$ {\bfseries parent}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/B\+Tree.\+h\end{DoxyCompactItemize}
