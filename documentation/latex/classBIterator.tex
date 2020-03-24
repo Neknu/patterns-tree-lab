@@ -1,5 +1,14 @@
 \hypertarget{classBIterator}{}\section{B\+Iterator$<$ T $>$ Class Template Reference}
 \label{classBIterator}\index{B\+Iterator$<$ T $>$@{B\+Iterator$<$ T $>$}}
+
+
+\+: Allows us to write specific iterators for \hyperlink{classBTree}{B\+Tree}, and define iterating behaviour with \hyperlink{classIterationPolicy}{Iteration\+Policy} (Mix of Bridge and Strategy Patterns)  
+
+
+
+
+{\ttfamily \#include $<$B\+Iterator.\+hpp$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -7,8 +16,8 @@
 {\bfseries B\+Iterator} (std\+::shared\+\_\+ptr$<$ typename \hyperlink{classBTree}{B\+Tree}$<$ T $>$\+::B\+Node $>$ root, std\+::shared\+\_\+ptr$<$ \hyperlink{classIterationPolicy}{Iteration\+Policy}$<$ T $>$$>$ policy)
 \item 
 \mbox{\Hypertarget{classBIterator_a2881a68f1b77b33fca0b10bc8f9b16bc}\label{classBIterator_a2881a68f1b77b33fca0b10bc8f9b16bc}} 
-virtual const T \& {\bfseries operator$\ast$} () const noexcept
-\item 
+virtual const T \& \hyperlink{classBIterator_a2881a68f1b77b33fca0b10bc8f9b16bc}{operator$\ast$} () const noexcept
+\begin{DoxyCompactList}\small\item\em \+: returns value of current\+\_\+node \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classBIterator_a5b7417b24265f286d0e0086b7612f068}\label{classBIterator_a5b7417b24265f286d0e0086b7612f068}} 
 virtual bool {\bfseries operator!=} (const \hyperlink{classBIterator}{B\+Iterator} \&other) noexcept
 \item 
@@ -33,21 +42,16 @@ std\+::shared\+\_\+ptr$<$ \hyperlink{classIterationPolicy}{Iteration\+Policy}$<$
 \subsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classBIterator_a151ca71f2c751d8a163f3f99ccf6cec9}{Tree$<$ T $>$}
-\begin{DoxyCompactList}\small\item\em \+: Allows us to write specific iterators for trees, and define iterating behaviour with \hyperlink{classIterationPolicy}{Iteration\+Policy} (Mix of Bridge and Strategy Patterns) \end{DoxyCompactList}\end{DoxyCompactItemize}
-
-
-\subsection{Friends And Related Function Documentation}
 \mbox{\Hypertarget{classBIterator_a151ca71f2c751d8a163f3f99ccf6cec9}\label{classBIterator_a151ca71f2c751d8a163f3f99ccf6cec9}} 
-\index{B\+Iterator@{B\+Iterator}!Tree$<$ T $>$@{Tree$<$ T $>$}}
-\index{Tree$<$ T $>$@{Tree$<$ T $>$}!B\+Iterator@{B\+Iterator}}
-\subsubsection{\texorpdfstring{Tree$<$ T $>$}{Tree< T >}}
-{\footnotesize\ttfamily template$<$typename T$>$ \\
-friend class \hyperlink{classTree}{Tree}$<$ T $>$\hspace{0.3cm}{\ttfamily [friend]}}
+class {\bfseries Tree$<$ T $>$}
+\end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class B\+Iterator$<$ T $>$}
 
-\+: Allows us to write specific iterators for trees, and define iterating behaviour with \hyperlink{classIterationPolicy}{Iteration\+Policy} (Mix of Bridge and Strategy Patterns) 
+\+: Allows us to write specific iterators for \hyperlink{classBTree}{B\+Tree}, and define iterating behaviour with \hyperlink{classIterationPolicy}{Iteration\+Policy} (Mix of Bridge and Strategy Patterns) 
 
 class for B Iterators 
 

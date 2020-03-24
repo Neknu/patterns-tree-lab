@@ -2,7 +2,7 @@
 \label{classTree}\index{Tree$<$ T $>$@{Tree$<$ T $>$}}
 
 
-Class (interface) for all trees.  
+Base class for all Trees  Used for making similar interface for all Trees.  
 
 
 
@@ -11,8 +11,7 @@ Class (interface) for all trees.
 
 
 
-Inheritance diagram for Tree$<$ T $>$\+:
-\nopagebreak
+Inheritance diagram for Tree$<$ T $>$\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,19 +22,19 @@ Inheritance diagram for Tree$<$ T $>$\+:
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{classTree_1_1Node}{Node}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Base Class for all nodes. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classTree_a33de7916dcffea3a4bebe97584f1c5c1}\label{classTree_a33de7916dcffea3a4bebe97584f1c5c1}} 
-virtual void {\bfseries insert} (const T \&key)=0
-\item 
+virtual void \hyperlink{classTree_a33de7916dcffea3a4bebe97584f1c5c1}{insert} (const T \&key)=0
+\begin{DoxyCompactList}\small\item\em Insert element in the tree with Template parameter key. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classTree_a24d087ff6f8a6f342717361825280fda}\label{classTree_a24d087ff6f8a6f342717361825280fda}} 
-virtual void {\bfseries remove} (const T \&key) noexcept=0
-\item 
+virtual void \hyperlink{classTree_a24d087ff6f8a6f342717361825280fda}{remove} (const T \&key) noexcept=0
+\begin{DoxyCompactList}\small\item\em remove element from the tree with Template parameter key  if there is no element with this key -\/ nothing does \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classTree_ae6779310befe6ae12ac32f93195bdfe3}\label{classTree_ae6779310befe6ae12ac32f93195bdfe3}} 
-virtual void {\bfseries print} () const noexcept=0
-\end{DoxyCompactItemize}
+virtual void \hyperlink{classTree_ae6779310befe6ae12ac32f93195bdfe3}{print} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em simple print tree in console  can be done with Iterators \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -48,7 +47,7 @@ std\+::shared\+\_\+ptr$<$ \hyperlink{classTree_1_1Node}{Node} $>$ {\bfseries roo
 \subsubsection*{template$<$typename T$>$\newline
 class Tree$<$ T $>$}
 
-Class (interface) for all trees. 
+Base class for all Trees  Used for making similar interface for all Trees. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

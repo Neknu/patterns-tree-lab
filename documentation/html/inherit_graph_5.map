@@ -1,6 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classTree.html" title="Class (interface) for all trees. " alt="" coords="5,56,85,83"/>
-<area shape="rect" id="node2" href="$classBplusTree.html" title="Class for implementing Bplus Tree. " alt="" coords="133,5,247,32"/>
-<area shape="rect" id="node3" href="$classBTree.html" title="Class for implementing B Tree. " alt="" coords="145,56,235,83"/>
-<area shape="rect" id="node4" href="$classSplayTree.html" title="Class for implementing Splay Tree. " alt="" coords="133,107,247,133"/>
+<area shape="rect" id="node2" href="$classBTree_1_1BNode.html" title=": Class for implementing Node in BTree &#45; BNode " alt="" coords="244,5,381,32"/>
+<area shape="rect" id="node3" href="$classTree_1_1Node.html" title="Base Class for all nodes. " alt="" coords="29,56,148,83"/>
+<area shape="rect" id="node4" href="$classBplusTree_1_1BplusNode.html" title="BplusTree\&lt; T \&gt;::BplusNode" alt="" coords="220,56,405,83"/>
+<area shape="rect" id="node5" href="$classSplayTree_1_1SplayNode.html" title="SplayTree\&lt; T \&gt;::SplayNode" alt="" coords="220,107,405,133"/>
 </map>

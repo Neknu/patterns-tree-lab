@@ -2,6 +2,15 @@
 \label{classTree_1_1Node}\index{Tree$<$ T $>$\+::\+Node@{Tree$<$ T $>$\+::\+Node}}
 
 
+Base Class for all nodes.  
+
+
+
+
+{\ttfamily \#include $<$Tree.\+h$>$}
+
+
+
 Inheritance diagram for Tree$<$ T $>$\+:\+:Node\+:
 \nopagebreak
 \begin{figure}[H]
@@ -13,12 +22,55 @@ Inheritance diagram for Tree$<$ T $>$\+:\+:Node\+:
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+virtual std\+::shared\+\_\+ptr$<$ \hyperlink{classTree_1_1Node}{Node} $>$ \hyperlink{classTree_1_1Node_a50f15b262b0d6c572904be68ba067ca6}{next} () noexcept=0
+\begin{DoxyCompactList}\small\item\em get next element ordered by keys \end{DoxyCompactList}\item 
+virtual std\+::shared\+\_\+ptr$<$ \hyperlink{classTree_1_1Node}{Node} $>$ \hyperlink{classTree_1_1Node_a3f912d90adc2c50de5ce7f96e6695c96}{previous} () noexcept=0
+\begin{DoxyCompactList}\small\item\em get previous element ordered by keys \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Tree$<$ T $>$\+::\+Node}
+
+Base Class for all nodes. 
+
+\subsection{Member Function Documentation}
 \mbox{\Hypertarget{classTree_1_1Node_a50f15b262b0d6c572904be68ba067ca6}\label{classTree_1_1Node_a50f15b262b0d6c572904be68ba067ca6}} 
-virtual std\+::shared\+\_\+ptr$<$ \hyperlink{classTree_1_1Node}{Node} $>$ {\bfseries next} () noexcept=0
-\item 
+\index{Tree\+::\+Node@{Tree\+::\+Node}!next@{next}}
+\index{next@{next}!Tree\+::\+Node@{Tree\+::\+Node}}
+\subsubsection{\texorpdfstring{next()}{next()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual std\+::shared\+\_\+ptr$<$\hyperlink{classTree_1_1Node}{Node}$>$ \hyperlink{classTree}{Tree}$<$ T $>$\+::Node\+::next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+get next element ordered by keys 
+
+\begin{DoxyReturn}{Returns}
+nullptr if not exist 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classBTree_1_1BNode_a8440e89eab5284dc118c00de4e7e619b}{B\+Tree$<$ T $>$\+::\+B\+Node}, and \hyperlink{classSplayTree_1_1SplayNode_a958decc1fc4c1c2aa4c80c5fc4e42acd}{Splay\+Tree$<$ T $>$\+::\+Splay\+Node}.
+
 \mbox{\Hypertarget{classTree_1_1Node_a3f912d90adc2c50de5ce7f96e6695c96}\label{classTree_1_1Node_a3f912d90adc2c50de5ce7f96e6695c96}} 
-virtual std\+::shared\+\_\+ptr$<$ \hyperlink{classTree_1_1Node}{Node} $>$ {\bfseries previous} () noexcept=0
-\end{DoxyCompactItemize}
+\index{Tree\+::\+Node@{Tree\+::\+Node}!previous@{previous}}
+\index{previous@{previous}!Tree\+::\+Node@{Tree\+::\+Node}}
+\subsubsection{\texorpdfstring{previous()}{previous()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual std\+::shared\+\_\+ptr$<$\hyperlink{classTree_1_1Node}{Node}$>$ \hyperlink{classTree}{Tree}$<$ T $>$\+::Node\+::previous (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+get previous element ordered by keys 
+
+\begin{DoxyReturn}{Returns}
+nullptr if not exist 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classBTree_1_1BNode_aa3909dab0e45cf56b602705b8720e7c0}{B\+Tree$<$ T $>$\+::\+B\+Node}, and \hyperlink{classSplayTree_1_1SplayNode_a6a89136b18f560485a4bda43ef15f560}{Splay\+Tree$<$ T $>$\+::\+Splay\+Node}.
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

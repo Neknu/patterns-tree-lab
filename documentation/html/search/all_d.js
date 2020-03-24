@@ -1,14 +1,5 @@
 var searchData=
 [
-  ['randomfloatinggenerator',['RandomFloatingGenerator',['../classCatch_1_1Generators_1_1RandomFloatingGenerator.html',1,'Catch::Generators']]],
-  ['randomintegergenerator',['RandomIntegerGenerator',['../classCatch_1_1Generators_1_1RandomIntegerGenerator.html',1,'Catch::Generators']]],
-  ['rangegenerator',['RangeGenerator',['../classCatch_1_1Generators_1_1RangeGenerator.html',1,'Catch::Generators']]],
-  ['regexmatcher',['RegexMatcher',['../structCatch_1_1Matchers_1_1StdString_1_1RegexMatcher.html',1,'Catch::Matchers::StdString']]],
-  ['registrarfortagaliases',['RegistrarForTagAliases',['../structCatch_1_1RegistrarForTagAliases.html',1,'Catch']]],
-  ['repeatgenerator',['RepeatGenerator',['../classCatch_1_1Generators_1_1RepeatGenerator.html',1,'Catch::Generators']]],
-  ['resultdisposition',['ResultDisposition',['../structCatch_1_1ResultDisposition.html',1,'Catch']]],
-  ['resultwas',['ResultWas',['../structCatch_1_1ResultWas.html',1,'Catch']]],
-  ['reusablestringstream',['ReusableStringStream',['../classCatch_1_1ReusableStringStream.html',1,'Catch']]],
-  ['reverseiteration',['ReverseIteration',['../classReverseIteration.html',1,'']]],
-  ['runtests',['RunTests',['../structCatch_1_1RunTests.html',1,'Catch']]]
+  ['tree',['Tree',['../classTree.html',1,'']]],
+  ['tree_3c_20t_20_3e',['Tree&lt; T &gt;',['../classSplayIterator.html#a151ca71f2c751d8a163f3f99ccf6cec9',1,'SplayIterator']]]
 ];
