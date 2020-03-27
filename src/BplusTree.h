@@ -33,7 +33,7 @@ public:
    class BplusNode : public Tree<T>::Node {
     public:
         explicit BplusNode();        
-        ~BplusNode();
+       /* ~BplusNode();*/
 
         [[nodiscard]] bool is_leaf() const noexcept;
 

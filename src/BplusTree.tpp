@@ -16,27 +16,20 @@ int generate() {
     static std::random_device rd;
     static std::seed_seq seed{ rd(), static_cast<unsigned int>(time(nullptr)) };
     static std::mt19937_64 gen(seed);
-    static std::uniform_int_distribution<>dis(1, 1000);
+    static std::uniform_int_distribution<>dis(1, 100000);
     int res = dis(gen);
     return res;
 }
 
 
 template<typename T>
-BplusTree<T>::BplusNode::BplusNode() :    
+BplusTree<T>::BplusNode::BplusNode() : Tree<T>::Node(),
     parent(nullptr),
     nxt(nullptr),
     prv(nullptr),
     children(vector<NodePtr>()),
     indexes(vector<int>()),
     data(vector<T>()) {}
-
-template<typename T>
-BplusTree<T>::BplusNode::~BplusNode() {
-    indexes.clear();
-    children.clear();
-    data.clear();
-}
 
 template<typename T>
 bool BplusTree<T>::BplusNode::is_leaf() const noexcept {
@@ -108,8 +101,7 @@ void BplusTree<T>::split(NodePtr ptr) noexcept {
     NodePtr newN = std::make_shared<BplusNode>();
 
     ///Split indexes
-    newN->indexes.resize(MININD);
-    std::copy(ptr->indexes.begin(), ptr->indexes.begin() + MININD, newN->indexes.begin());
+    std::copy(ptr->indexes.begin(), ptr->indexes.begin() + MININD, std::back_inserter(newN->indexes));
     ptr->indexes.erase(ptr->indexes.begin(), ptr->indexes.begin() + MININD);
 
     if (ptr->is_leaf()) {
@@ -122,14 +114,12 @@ void BplusTree<T>::split(NodePtr ptr) noexcept {
             minNode = newN;
 
         ///Split data if leaves
-        newN->data.resize(MININD);
-        std::copy(ptr->data.begin(), ptr->data.begin() + MININD, newN->data.begin());
+        std::copy(ptr->data.begin(), ptr->data.begin() + MININD, std::back_inserter(newN->data));
         ptr->data.erase(ptr->data.begin(), ptr->data.begin() + MININD);
     }
     else {
         ///Split children if internal Nodes
-        newN->children.resize(MININD + 1);
-        std::copy(ptr->children.begin(), ptr->children.begin() + MININD + 1, newN->children.begin());
+        std::copy(ptr->children.begin(), ptr->children.begin() + MININD + 1, std::back_inserter(newN->children));
         for (int i = 0; i < newN->children.size(); ++i)
             newN->children[i]->parent = newN;
         ptr->children.erase(ptr->children.begin(), ptr->children.begin() + MININD + 1);
@@ -137,6 +127,8 @@ void BplusTree<T>::split(NodePtr ptr) noexcept {
 
     ///Maintain parent of new Node
     int spl = ptr->indexes[0];
+    if (!ptr->is_leaf())
+        ptr->indexes.erase(ptr->indexes.begin());
     NodePtr parent = ptr->parent;
     if (ptr == root) {
         parent = std::make_shared<BplusNode>();
@@ -144,8 +136,6 @@ void BplusTree<T>::split(NodePtr ptr) noexcept {
         parent->children.push_back(newN);
         parent->children.push_back(ptr);
         ptr->parent = parent;
-        if (!ptr->is_leaf())
-            ptr->indexes.erase(ptr->indexes.begin());
         root = parent;
     }
     else {
@@ -161,6 +151,7 @@ void BplusTree<T>::split(NodePtr ptr) noexcept {
     }
 
     newN->parent = ptr->parent;
+    Tree<T>::root = root;
 }
 
 template<typename T>
@@ -174,6 +165,8 @@ void BplusTree<T>::borrowLeft(NodePtr ptr) noexcept {
         br->data.erase(br->data.begin() + br->data.size() - 1);
 
         int j = firstGreater(ptr->parent->indexes, ptr->indexes[0]);
+        if (j == ptr->parent->indexes.size())
+            j = ptr->parent->indexes.size() - 1;
         ptr->parent->indexes[j] = ptr->indexes[0];
     }
     else {
@@ -182,6 +175,8 @@ void BplusTree<T>::borrowLeft(NodePtr ptr) noexcept {
         ptr->children[0]->parent = ptr;
 
         int j = firstGreater(ptr->parent->indexes, ptr->indexes[0]);
+        if (j == ptr->parent->indexes.size())
+            j = ptr->parent->indexes.size()-1;
         std::swap(ptr->parent->indexes[j], ptr->indexes[0]);
     }
 }
@@ -197,15 +192,19 @@ void BplusTree<T>::borrowRight(NodePtr ptr) noexcept {
         br->data.erase(br->data.begin());
 
         int j = firstGreater(ptr->parent->indexes, br->indexes[0]);
+        if (j == 0)
+            j = 1;
         ptr->parent->indexes[j - 1] = br->indexes[0];
     }
     else {
         ptr->children.push_back(br->children[0]);
         br->children.erase(br->children.begin());
-        ptr->children[MININD]->parent = ptr;
+        ptr->children[ptr->children.size()-1]->parent = ptr;
 
         int j = firstGreater(ptr->parent->indexes, br->indexes[0]);
-        std::swap(ptr->parent->indexes[j], ptr->indexes[ptr->indexes.size() - 1]);
+        if (j == 0)
+            j = 1;
+        std::swap(ptr->parent->indexes[j-1], ptr->indexes[ptr->indexes.size() - 1]);
     }
 }
 
@@ -231,13 +230,19 @@ typename BplusTree<T>::NodePtr BplusTree<T>::merge(NodePtr ptr) const noexcept {
         ptr->nxt->prv = br;
     }
     else {
-        br->children.resize(os + ptr->children.size());
-        std::copy(ptr->children.begin(), ptr->children.end(), br->children.begin() + os);
-        for (int i = os - 1; i < br->children.size(); ++i)
+        br->children.resize(br->children.size() + ptr->children.size());
+        std::copy(ptr->children.begin(), ptr->children.end(), br->children.begin() + br->children.size()- ptr->children.size());
+        for (int i = br->children.size() - ptr->children.size(); i < br->children.size(); ++i)
             br->children[i]->parent = br;
     }
 
     int j = firstGreater(br->parent->indexes, br->indexes[os - 1]);
+    if (j == br->parent->indexes.size())
+        j = br->parent->indexes.size() - 1;
+    
+    if (!br->is_leaf())
+        br->indexes.insert(br->indexes.begin() + os, br->parent->indexes[j]);           
+
     br->parent->indexes.erase(br->parent->indexes.begin() + j);
     br->parent->children.erase(br->parent->children.begin() + j + 1);
 
@@ -278,6 +283,7 @@ void BplusTree<T>::shrink() noexcept {
         for (int i = 0; i < root->children.size(); ++i)
             root->children[i]->parent = root;
     }
+    Tree<T>::root = root;
 }
 
 
@@ -288,18 +294,12 @@ void BplusTree<T>::insert(const T& key) {
         NodePtr root = std::dynamic_pointer_cast<BplusNode>(Tree<T>::root);
 
         ///find leaf to insert
-        NodePtr ptr = minNode;
-        while (ptr) {
-            if (ptr->indexes[0] > ind) {
-                if (ptr != minNode)
-                    ptr = ptr->prv;
-                break;
-            }
-            ptr = std::dynamic_pointer_cast<BplusNode>(ptr->next());
+        NodePtr ptr = root;
+        while (!ptr->is_leaf()) {
+            int j = firstGreater(ptr->indexes,ind);            
+            ptr = ptr->children[j];
         }
-        if (!ptr)
-            ptr = minNode->prv;
-
+        
         ///Insert new value into the leaf
         int j = firstGreater(ptr->indexes, ind);
         if (j != ptr->indexes.size()) {
@@ -310,7 +310,7 @@ void BplusTree<T>::insert(const T& key) {
             ptr->indexes.push_back(ind);
             ptr->data.push_back(key);
         }
-
+        
         ///Leaf is full, splitting is needed
         if (ptr->indexes.size() == M) {
             while (ptr->indexes.size() == M) {
@@ -330,12 +330,15 @@ void BplusTree<T>::insert(const T& key) {
         root->prv = root;
         minNode = root;
     }
+
 }
 
 template<typename T>
 void BplusTree<T>::print() const noexcept {
-    NodePtr root = std::dynamic_pointer_cast<BplusNode>(Tree<T>::root);
-    root->print(std::cout);
+    if (Tree<T>::root) {
+        NodePtr root = std::dynamic_pointer_cast<BplusNode>(Tree<T>::root);
+        root->print(std::cout);
+    }
 }
 
 template<typename T>
@@ -354,8 +357,9 @@ void BplusTree<T>::remove(const T& key) noexcept {
         ptr->indexes.erase(ptr->indexes.begin() + it.curr_ind);
         ptr->data.erase(ptr->data.begin() + it.curr_ind);
 
-        if (ptr == root && root->indexes.size() == 0) {
-            root = nullptr;
+        if (ptr == root) {
+            if(root->indexes.size() == 0)
+                Tree<T>::root = nullptr;
             return;
         }
 
@@ -399,6 +403,7 @@ void BplusTree<T>::remove(const T& key) noexcept {
                 ptr = ptr->parent;
             }
         }
+
     }
 }
 
@@ -436,7 +441,7 @@ BplusIterator<T> BplusTree<T>::end() const noexcept {
 
 template<typename T>
 BplusIterator<T> BplusTree<T>::rbegin() const noexcept {
-    return BplusIterator<T>(minNode->prv, std::make_shared<ReverseIteration<T>>());
+    return BplusIterator<T>(minNode->prv, std::make_shared<ReverseIteration<T>>(), minNode->prv->data.size()-1);
 }
 
 template<typename T>
