@@ -15,7 +15,22 @@ BplusIterator<T>::BplusIterator(
 template<typename T>
 BplusIterator<T>& BplusIterator<T>::operator++() noexcept {
     if (curr_node != nullptr) {
-        curr_node = std::dynamic_pointer_cast<typename BplusTree<T>::BplusNode>(policy->next(curr_node));
+        if (policy == std::make_shared<ForwardIteration<T>>()) {
+            if (curr_ind < curr_node->data.size() - 1)
+                ++curr_ind;
+            else {
+                curr_node = std::dynamic_pointer_cast<typename BplusTree<T>::BplusNode>(policy->next(curr_node));
+                curr_ind = 0;
+            }
+        }
+        else {
+            if (curr_ind)
+                --curr_ind;
+            else {
+                curr_node = std::dynamic_pointer_cast<typename BplusTree<T>::BplusNode>(policy->next(curr_node));
+                curr_ind = curr_node->data.size()-1;
+            }
+        }
     }
 
     return *this;
@@ -26,18 +41,32 @@ BplusIterator<T> BplusIterator<T>::operator+(int n) const noexcept {
     auto temp = curr_node;
     auto temp_ind = curr_ind;
 
-    while (n) {
-        if (temp_ind < tmp->data.size() - 1)
-            ++temp_ind;
-        else {
-            if (temp == nullptr) {
-                break;
+    if(policy== std::make_shared<ForwardIteration<T>>())
+        while (n) {
+            if (temp_ind < temp->data.size() - 1)
+                ++temp_ind;
+            else {
+                if (temp == nullptr) {
+                    break;
+                }
+                temp = std::dynamic_pointer_cast<typename BplusTree<T>::BplusNode>(policy->next(temp));
+                temp_ind = 0;
             }
-            temp = std::dynamic_pointer_cast<typename BplusTree<T>::BplusNode>(policy->next(curr_node));
-            temp_ind = 0;
+            --n;
+        }   
+    else 
+        while (n) {
+            if (temp_ind)
+                --temp_ind;
+            else {
+                if (temp == nullptr) {
+                    break;
+                }
+                temp = std::dynamic_pointer_cast<typename BplusTree<T>::BplusNode>(policy->next(temp));
+                temp_ind = temp->data.size()-1;
+            }
+            --n;
         }
-        --n;
-    }
 
     return BplusIterator(temp, policy,temp_ind);
 }
