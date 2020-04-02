@@ -37,12 +37,12 @@ bool BplusTree<T>::BplusNode::is_leaf() const noexcept {
 }
 
 template<typename T>
-typename std::shared_ptr<typename Tree<T>::Node> BplusTree<T>::BplusNode::next() const noexcept {
+typename std::shared_ptr<typename Tree<T>::Node> BplusTree<T>::BplusNode::next() noexcept {
     return indexes[0] < nxt->indexes[0] ? nxt : nullptr;
 }
 
 template<typename T>
-typename std::shared_ptr<typename Tree<T>::Node> BplusTree<T>::BplusNode::previous() const noexcept {
+typename std::shared_ptr<typename Tree<T>::Node> BplusTree<T>::BplusNode::previous() noexcept {
     return  indexes[0] > prv->indexes[0] ? prv : nullptr;
 }
 
@@ -67,11 +67,13 @@ typename BplusTree<T>::NodePtr BplusTree<T>::BplusNode::right() const noexcept {
 template<typename T>
 template<typename OStream>
 void BplusTree<T>::BplusNode::print(OStream& os, int level) const noexcept {
+    for(int i = 0; i < level; i++)
+        os << "    |";
     for (int i = 0; i < indexes.size(); ++i) {
         if (!this->is_leaf())
-            os << indexes[i] << ", ";
+            os << indexes[i] << "--  ";
         else
-            os << indexes[i] << '{' << data[i] << '}' << ", ";
+            os << indexes[i] << '(' << data[i].name << ')' << "-- ";
     }
     os << '\n';
     for (int i = 0; i < children.size(); ++i) {
