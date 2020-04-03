@@ -33,12 +33,12 @@ public:
    class BplusNode : public Tree<T>::Node {
     public:
         explicit BplusNode();        
-        ~BplusNode();
+       /* ~BplusNode();*/
 
         [[nodiscard]] bool is_leaf() const noexcept;
 
-        std::shared_ptr<Node> next() const noexcept override;
-        std::shared_ptr<Node> previous() const noexcept override;
+        std::shared_ptr<typename Tree<T>::Node> next() noexcept override;
+        std::shared_ptr<typename Tree<T>::Node> previous() noexcept override;
 
         NodePtr left() const noexcept;
         NodePtr right() const noexcept;

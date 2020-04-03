@@ -36,13 +36,13 @@ public:
          * @brief get next element ordered by keys
          * @return nullptr if not exist
         */
-        virtual std::shared_ptr<Node> next() noexcept = 0;
+        virtual std::shared_ptr<typename Tree<T>::Node> next() noexcept = 0;
 
         /**
          * @brief get previous element ordered by keys
          * @return nullptr if not exist
         */
-        virtual std::shared_ptr<Node> previous() noexcept = 0;
+        virtual std::shared_ptr<typename Tree<T>::Node> previous() noexcept = 0;
     };
 
     std::shared_ptr<Node> root;
@@ -57,11 +57,6 @@ template<template <typename T> typename TreeType, typename DataType>
 class BalancedTreeContext{
 public:
     explicit BalancedTreeContext(std::shared_ptr<TreeType<DataType>> tree);
-
-    /*
-     * Тут потім будуть методи для взаємодії з деревом, але зараз це не важливо
-     * */
-
     void insert(const DataType& key);
     void remove(const DataType& key) noexcept;
     void print() const noexcept;
