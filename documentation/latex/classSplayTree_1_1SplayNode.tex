@@ -1,0 +1,97 @@
+\hypertarget{classSplayTree_1_1SplayNode}{}\section{Splay\+Tree$<$ T $>$\+:\+:Splay\+Node Class Reference}
+\label{classSplayTree_1_1SplayNode}\index{Splay\+Tree$<$ T $>$\+::\+Splay\+Node@{Splay\+Tree$<$ T $>$\+::\+Splay\+Node}}
+
+
+Inheritance diagram for Splay\+Tree$<$ T $>$\+:\+:Splay\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{classSplayTree_1_1SplayNode__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Splay\+Tree$<$ T $>$\+:\+:Splay\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{classSplayTree_1_1SplayNode__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSplayTree_1_1SplayNode_af613da62a8442f16ac8b4d2f1a2c9a41}\label{classSplayTree_1_1SplayNode_af613da62a8442f16ac8b4d2f1a2c9a41}} 
+{\bfseries Splay\+Node} (const T \&key)
+\item 
+std\+::shared\+\_\+ptr$<$ typename \hyperlink{classTree}{Tree}$<$ T $>$\+::\hyperlink{classTree_1_1Node}{Node} $>$ \hyperlink{classSplayTree_1_1SplayNode_a958decc1fc4c1c2aa4c80c5fc4e42acd}{next} () noexcept override
+\begin{DoxyCompactList}\small\item\em get next element ordered by keys \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ typename \hyperlink{classTree}{Tree}$<$ T $>$\+::\hyperlink{classTree_1_1Node}{Node} $>$ \hyperlink{classSplayTree_1_1SplayNode_a6a89136b18f560485a4bda43ef15f560}{previous} () noexcept override
+\begin{DoxyCompactList}\small\item\em get previous element ordered by keys \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSplayTree_1_1SplayNode_ac057d0b4f3e979f4145e4690c8edc343}\label{classSplayTree_1_1SplayNode_ac057d0b4f3e979f4145e4690c8edc343}} 
+bool {\bfseries is\+Left\+Son} () const noexcept
+\item 
+\mbox{\Hypertarget{classSplayTree_1_1SplayNode_a650c250d2034ffea6db16daf30114ad3}\label{classSplayTree_1_1SplayNode_a650c250d2034ffea6db16daf30114ad3}} 
+bool {\bfseries is\+Right\+Son} () const noexcept
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSplayTree_1_1SplayNode_a4c3d24b5fe0a6220132892e341c3fe34}\label{classSplayTree_1_1SplayNode_a4c3d24b5fe0a6220132892e341c3fe34}} 
+T {\bfseries data}
+\item 
+\mbox{\Hypertarget{classSplayTree_1_1SplayNode_a8aeaae9e2fa624ee436abd87bd90eefb}\label{classSplayTree_1_1SplayNode_a8aeaae9e2fa624ee436abd87bd90eefb}} 
+std\+::shared\+\_\+ptr$<$ \hyperlink{classSplayTree_1_1SplayNode}{Splay\+Node} $>$ {\bfseries parent}
+\item 
+\mbox{\Hypertarget{classSplayTree_1_1SplayNode_abc672e50545562d79fe247fe4959c6a0}\label{classSplayTree_1_1SplayNode_abc672e50545562d79fe247fe4959c6a0}} 
+std\+::shared\+\_\+ptr$<$ \hyperlink{classSplayTree_1_1SplayNode}{Splay\+Node} $>$ {\bfseries left}
+\item 
+\mbox{\Hypertarget{classSplayTree_1_1SplayNode_ac72b70dd81da0a57e1e2678a4da0e0cf}\label{classSplayTree_1_1SplayNode_ac72b70dd81da0a57e1e2678a4da0e0cf}} 
+std\+::shared\+\_\+ptr$<$ \hyperlink{classSplayTree_1_1SplayNode}{Splay\+Node} $>$ {\bfseries right}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSplayTree_1_1SplayNode_a958decc1fc4c1c2aa4c80c5fc4e42acd}\label{classSplayTree_1_1SplayNode_a958decc1fc4c1c2aa4c80c5fc4e42acd}} 
+\index{Splay\+Tree\+::\+Splay\+Node@{Splay\+Tree\+::\+Splay\+Node}!next@{next}}
+\index{next@{next}!Splay\+Tree\+::\+Splay\+Node@{Splay\+Tree\+::\+Splay\+Node}}
+\subsubsection{\texorpdfstring{next()}{next()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::shared\+\_\+ptr$<$typename \hyperlink{classTree}{Tree}$<$T$>$\+::\hyperlink{classTree_1_1Node}{Node}$>$ \hyperlink{classSplayTree}{Splay\+Tree}$<$ T $>$\+::Splay\+Node\+::next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+get next element ordered by keys 
+
+\begin{DoxyReturn}{Returns}
+nullptr if not exist 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classTree_1_1Node_a50f15b262b0d6c572904be68ba067ca6}{Tree$<$ T $>$\+::\+Node}.
+
+\mbox{\Hypertarget{classSplayTree_1_1SplayNode_a6a89136b18f560485a4bda43ef15f560}\label{classSplayTree_1_1SplayNode_a6a89136b18f560485a4bda43ef15f560}} 
+\index{Splay\+Tree\+::\+Splay\+Node@{Splay\+Tree\+::\+Splay\+Node}!previous@{previous}}
+\index{previous@{previous}!Splay\+Tree\+::\+Splay\+Node@{Splay\+Tree\+::\+Splay\+Node}}
+\subsubsection{\texorpdfstring{previous()}{previous()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::shared\+\_\+ptr$<$typename \hyperlink{classTree}{Tree}$<$T$>$\+::\hyperlink{classTree_1_1Node}{Node}$>$ \hyperlink{classSplayTree}{Splay\+Tree}$<$ T $>$\+::Splay\+Node\+::previous (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+get previous element ordered by keys 
+
+\begin{DoxyReturn}{Returns}
+nullptr if not exist 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classTree_1_1Node_a3f912d90adc2c50de5ce7f96e6695c96}{Tree$<$ T $>$\+::\+Node}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/Splay\+Tree.\+h\end{DoxyCompactItemize}

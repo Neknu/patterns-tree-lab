@@ -1,0 +1,84 @@
+\hypertarget{classBplusTree}{}\section{Bplus\+Tree$<$ T $>$ Class Template Reference}
+\label{classBplusTree}\index{Bplus\+Tree$<$ T $>$@{Bplus\+Tree$<$ T $>$}}
+
+
+Class for implementing Bplus \hyperlink{classTree}{Tree}.  
+
+
+
+
+{\ttfamily \#include $<$Bplus\+Tree.\+h$>$}
+
+
+
+Inheritance diagram for Bplus\+Tree$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=165pt]{classBplusTree__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Bplus\+Tree$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=165pt]{classBplusTree__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classBplusTree_1_1BplusNode}{Bplus\+Node}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBplusTree_a4db76354142996b6c2e943e4bfe82c38}\label{classBplusTree_a4db76354142996b6c2e943e4bfe82c38}} 
+typedef shared\+\_\+ptr$<$ \hyperlink{classBplusTree_1_1BplusNode}{Bplus\+Node} $>$ {\bfseries Node\+Ptr}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBplusTree_a95dac42b6d93b4c41bfcd1aacac936d8}\label{classBplusTree_a95dac42b6d93b4c41bfcd1aacac936d8}} 
+{\bfseries Bplus\+Tree} (const int m)
+\item 
+\mbox{\Hypertarget{classBplusTree_a706e3329120bd4f25ca0e9ff28eb7e32}\label{classBplusTree_a706e3329120bd4f25ca0e9ff28eb7e32}} 
+void \hyperlink{classBplusTree_a706e3329120bd4f25ca0e9ff28eb7e32}{insert} (const T \&key) override
+\begin{DoxyCompactList}\small\item\em Insert element in the tree with Template parameter key. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBplusTree_a7e63275f3226fe9bdb29a4bcbd938fb4}\label{classBplusTree_a7e63275f3226fe9bdb29a4bcbd938fb4}} 
+void \hyperlink{classBplusTree_a7e63275f3226fe9bdb29a4bcbd938fb4}{remove} (const T \&key) noexcept override
+\begin{DoxyCompactList}\small\item\em remove element from the tree with Template parameter key  if there is no element with this key -\/ nothing does \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBplusTree_ad1ae39510e9c7be66119d9387dfe30c5}\label{classBplusTree_ad1ae39510e9c7be66119d9387dfe30c5}} 
+void \hyperlink{classBplusTree_ad1ae39510e9c7be66119d9387dfe30c5}{print} () const noexcept override
+\begin{DoxyCompactList}\small\item\em simple print tree in console  can be done with Iterators \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBplusTree_a367ff479947c9103abc781db035a49ee}\label{classBplusTree_a367ff479947c9103abc781db035a49ee}} 
+Bplus\+Iterator$<$ T $>$ {\bfseries find} (const T \&key) const noexcept
+\item 
+\mbox{\Hypertarget{classBplusTree_af25d2c310a013718a1d54e8993bf7b76}\label{classBplusTree_af25d2c310a013718a1d54e8993bf7b76}} 
+Bplus\+Iterator$<$ T $>$ {\bfseries begin} () const noexcept
+\item 
+\mbox{\Hypertarget{classBplusTree_ac217ed576ff9495e2fd90f5d13f34065}\label{classBplusTree_ac217ed576ff9495e2fd90f5d13f34065}} 
+Bplus\+Iterator$<$ T $>$ {\bfseries end} () const noexcept
+\item 
+\mbox{\Hypertarget{classBplusTree_a96798aee453828de98c3eba8a6507915}\label{classBplusTree_a96798aee453828de98c3eba8a6507915}} 
+Bplus\+Iterator$<$ T $>$ {\bfseries rbegin} () const noexcept
+\item 
+\mbox{\Hypertarget{classBplusTree_a048e70503ad677508b75cb845d125b93}\label{classBplusTree_a048e70503ad677508b75cb845d125b93}} 
+Bplus\+Iterator$<$ T $>$ {\bfseries rend} () const noexcept
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Bplus\+Tree$<$ T $>$}
+
+Class for implementing Bplus \hyperlink{classTree}{Tree}. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/Bplus\+Tree.\+h\end{DoxyCompactItemize}
