@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -35,17 +36,20 @@ public:
     QWidget *centralwidget;
     QStackedWidget *stackedWidget;
     QWidget *stackedWidgetPage1;
+    QGroupBox *groupBox_2;
     QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout;
+    QVBoxLayout *globalLayout_p1;
     QLabel *label_welcome;
     QLabel *label_select_data;
     QComboBox *combo_box_data_type;
     QVBoxLayout *verticalLayout_2;
-    QLabel *label_select_tree;
     QVBoxLayout *verticalLayout_3;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
-    QRadioButton *radioButton_3;
+    QGroupBox *groupBox;
+    QWidget *verticalLayoutWidget_2;
+    QVBoxLayout *verticalLayout_6;
+    QRadioButton *radio_button_splaytree;
+    QRadioButton *radio_btn_btree;
+    QRadioButton *radio_button_bplustree;
     QPushButton *pushButton;
     QWidget *stackedWidgetPage2;
     QWidget *horizontalLayoutWidget;
@@ -80,12 +84,15 @@ public:
         stackedWidget->setGeometry(QRect(10, 0, 781, 541));
         stackedWidgetPage1 = new QWidget();
         stackedWidgetPage1->setObjectName(QString::fromUtf8("stackedWidgetPage1"));
-        verticalLayoutWidget = new QWidget(stackedWidgetPage1);
+        groupBox_2 = new QGroupBox(stackedWidgetPage1);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        groupBox_2->setGeometry(QRect(220, 70, 321, 381));
+        verticalLayoutWidget = new QWidget(groupBox_2);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(260, 80, 251, 341));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        verticalLayoutWidget->setGeometry(QRect(40, 20, 251, 341));
+        globalLayout_p1 = new QVBoxLayout(verticalLayoutWidget);
+        globalLayout_p1->setObjectName(QString::fromUtf8("globalLayout_p1"));
+        globalLayout_p1->setContentsMargins(0, 0, 0, 0);
         label_welcome = new QLabel(verticalLayoutWidget);
         label_welcome->setObjectName(QString::fromUtf8("label_welcome"));
         label_welcome->setMaximumSize(QSize(16777215, 40));
@@ -94,7 +101,7 @@ public:
         label_welcome->setFont(font);
         label_welcome->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
 
-        verticalLayout->addWidget(label_welcome);
+        globalLayout_p1->addWidget(label_welcome);
 
         label_select_data = new QLabel(verticalLayoutWidget);
         label_select_data->setObjectName(QString::fromUtf8("label_select_data"));
@@ -103,7 +110,7 @@ public:
         font1.setPointSize(10);
         label_select_data->setFont(font1);
 
-        verticalLayout->addWidget(label_select_data);
+        globalLayout_p1->addWidget(label_select_data);
 
         combo_box_data_type = new QComboBox(verticalLayoutWidget);
         combo_box_data_type->addItem(QString());
@@ -118,38 +125,43 @@ public:
         font2.setWeight(75);
         combo_box_data_type->setFont(font2);
 
-        verticalLayout->addWidget(combo_box_data_type);
+        globalLayout_p1->addWidget(combo_box_data_type);
 
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, -1, -1);
-        label_select_tree = new QLabel(verticalLayoutWidget);
-        label_select_tree->setObjectName(QString::fromUtf8("label_select_tree"));
-        label_select_tree->setMaximumSize(QSize(16777215, 30));
-        label_select_tree->setFont(font1);
-
-        verticalLayout_2->addWidget(label_select_tree);
-
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        verticalLayout_3->setContentsMargins(30, -1, -1, -1);
-        radioButton = new QRadioButton(verticalLayoutWidget);
-        radioButton->setObjectName(QString::fromUtf8("radioButton"));
-        radioButton->setFont(font1);
+        verticalLayout_3->setContentsMargins(0, -1, -1, -1);
+        groupBox = new QGroupBox(verticalLayoutWidget);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setFont(font1);
+        verticalLayoutWidget_2 = new QWidget(groupBox);
+        verticalLayoutWidget_2->setObjectName(QString::fromUtf8("verticalLayoutWidget_2"));
+        verticalLayoutWidget_2->setGeometry(QRect(30, 40, 201, 140));
+        verticalLayout_6 = new QVBoxLayout(verticalLayoutWidget_2);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        verticalLayout_6->setContentsMargins(0, 0, 0, 0);
+        radio_button_splaytree = new QRadioButton(verticalLayoutWidget_2);
+        radio_button_splaytree->setObjectName(QString::fromUtf8("radio_button_splaytree"));
+        radio_button_splaytree->setFont(font1);
 
-        verticalLayout_3->addWidget(radioButton);
+        verticalLayout_6->addWidget(radio_button_splaytree);
 
-        radioButton_2 = new QRadioButton(verticalLayoutWidget);
-        radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
-        radioButton_2->setFont(font1);
+        radio_btn_btree = new QRadioButton(verticalLayoutWidget_2);
+        radio_btn_btree->setObjectName(QString::fromUtf8("radio_btn_btree"));
+        radio_btn_btree->setFont(font1);
 
-        verticalLayout_3->addWidget(radioButton_2);
+        verticalLayout_6->addWidget(radio_btn_btree);
 
-        radioButton_3 = new QRadioButton(verticalLayoutWidget);
-        radioButton_3->setObjectName(QString::fromUtf8("radioButton_3"));
-        radioButton_3->setFont(font1);
+        radio_button_bplustree = new QRadioButton(verticalLayoutWidget_2);
+        radio_button_bplustree->setObjectName(QString::fromUtf8("radio_button_bplustree"));
+        radio_button_bplustree->setFont(font1);
 
-        verticalLayout_3->addWidget(radioButton_3);
+        verticalLayout_6->addWidget(radio_button_bplustree);
+
+
+        verticalLayout_3->addWidget(groupBox);
 
 
         verticalLayout_2->addLayout(verticalLayout_3);
@@ -161,7 +173,7 @@ public:
         verticalLayout_2->addWidget(pushButton);
 
 
-        verticalLayout->addLayout(verticalLayout_2);
+        globalLayout_p1->addLayout(verticalLayout_2);
 
         stackedWidget->addWidget(stackedWidgetPage1);
         stackedWidgetPage2 = new QWidget();
@@ -249,6 +261,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
         action_to_start_page->setText(QApplication::translate("MainWindow", "<- to start page", nullptr));
         actionreset_window->setText(QApplication::translate("MainWindow", "reset window", nullptr));
+        groupBox_2->setTitle(QString());
         label_welcome->setText(QApplication::translate("MainWindow", "Welcome", nullptr));
         label_select_data->setText(QApplication::translate("MainWindow", "Select data type:", nullptr));
         combo_box_data_type->setItemText(0, QApplication::translate("MainWindow", "int", nullptr));
@@ -256,10 +269,10 @@ public:
         combo_box_data_type->setItemText(2, QApplication::translate("MainWindow", "double", nullptr));
         combo_box_data_type->setItemText(3, QApplication::translate("MainWindow", "char", nullptr));
 
-        label_select_tree->setText(QApplication::translate("MainWindow", "Select tree type:", nullptr));
-        radioButton->setText(QApplication::translate("MainWindow", "Splay Tree", nullptr));
-        radioButton_2->setText(QApplication::translate("MainWindow", "B Tree", nullptr));
-        radioButton_3->setText(QApplication::translate("MainWindow", "B+ Tree", nullptr));
+        groupBox->setTitle(QApplication::translate("MainWindow", "Select tree type:", nullptr));
+        radio_button_splaytree->setText(QApplication::translate("MainWindow", "Splay Tree", nullptr));
+        radio_btn_btree->setText(QApplication::translate("MainWindow", "B Tree", nullptr));
+        radio_button_bplustree->setText(QApplication::translate("MainWindow", "B+ Tree", nullptr));
         pushButton->setText(QApplication::translate("MainWindow", "Start", nullptr));
         label->setText(QApplication::translate("MainWindow", "screen", nullptr));
         label_2->setText(QApplication::translate("MainWindow", "ForwardIteration ReverseIteration", nullptr));

@@ -1,7 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "../../Src/Tree.h"
+
 #include <QMainWindow>
+
+#include <variant>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,5 +28,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+
+//    std::variant<int, string context;
+
 };
 #endif // MAINWINDOW_H

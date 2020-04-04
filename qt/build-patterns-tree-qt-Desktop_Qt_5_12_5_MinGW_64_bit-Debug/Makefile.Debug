@@ -15,7 +15,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -g -Wall -W -Wextra $(DEFINES)
-CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
+CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++1z -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
 INCPATH       = -I..\patterns-tree-qt -I. -ID:\Qt\5.12.5\mingw73_64\include -ID:\Qt\5.12.5\mingw73_64\include\QtWidgets -ID:\Qt\5.12.5\mingw73_64\include\QtGui -ID:\Qt\5.12.5\mingw73_64\include\QtANGLE -ID:\Qt\5.12.5\mingw73_64\include\QtCore -Idebug -I. -I/include -ID:\Qt\5.12.5\mingw73_64\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
@@ -100,7 +100,7 @@ compiler_moc_predefs_make_all: debug/moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) debug\moc_predefs.h
 debug/moc_predefs.h: D:/Qt/5.12.5/mingw73_64/mkspecs/features/data/dummy.cpp
-	g++ -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -dM -E -o debug\moc_predefs.h D:\Qt\5.12.5\mingw73_64\mkspecs\features\data\dummy.cpp
+	g++ -fno-keep-inline-dllexport -g -std=gnu++1z -Wall -W -Wextra -dM -E -o debug\moc_predefs.h D:\Qt\5.12.5\mingw73_64\mkspecs\features\data\dummy.cpp
 
 compiler_moc_header_make_all: debug/moc_mainwindow.cpp
 compiler_moc_header_clean:
@@ -462,7 +462,64 @@ debug/mainwindow.o: ../patterns-tree-qt/mainwindow.cpp ../patterns-tree-qt/mainw
 		D:/Qt/5.12.5/mingw73_64/include/QtGui/qtouchdevice.h \
 		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qtabwidget.h \
 		D:/Qt/5.12.5/mingw73_64/include/QtGui/qicon.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtCore/QVariant \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QAction \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qaction.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qactiongroup.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QApplication \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qapplication.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtCore/qcoreapplication.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtCore/qeventloop.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtGui/qguiapplication.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtGui/qinputmethod.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QComboBox \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qcombobox.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qabstractitemdelegate.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qstyleoption.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtGui/qvalidator.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtCore/qregularexpression.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qslider.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qabstractslider.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qstyle.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qtabbar.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qrubberband.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qframe.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtCore/qabstractitemmodel.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QHBoxLayout \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qboxlayout.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qlayout.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qlayoutitem.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qgridlayout.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QLabel \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qlabel.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QMenu \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qmenu.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QMenuBar \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qmenubar.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QPushButton \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qpushbutton.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QRadioButton \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qradiobutton.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QStackedWidget \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qstackedwidget.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QStatusBar \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/qstatusbar.h \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QVBoxLayout \
+		D:/Qt/5.12.5/mingw73_64/include/QtWidgets/QWidget \
+		../../Src/BTree.h \
+		../../Src/Tree.h \
+		../../Src/BIterator.hpp \
+		../../Src/IterationPolicy.h \
+		../../Src/BIterator.tpp \
+		../../Src/BTree.tpp \
+		../../Src/SplayTree.h \
+		../../Src/SplayIterator.hpp \
+		../../Src/SplayIterator.tpp \
+		../../Src/SplayTree.tpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\patterns-tree-qt\mainwindow.cpp
 
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 
