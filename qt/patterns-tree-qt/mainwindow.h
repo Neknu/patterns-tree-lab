@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "../../Src/Tree.h"
-
 #include <QMainWindow>
 
 #include <variant>
@@ -10,6 +8,10 @@
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+enum class DataType {Int, String, Double, Char};
+
+enum class TreeType {Splay, B, Bplus};
 
 class MainWindow : public QMainWindow
 {
@@ -29,8 +31,10 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-
-//    std::variant<int, string context;
+    DataType data_type;
+    TreeType tree_type;
+    int min_degree = 3; // for BTree and BplusTree
+    void* context;
 
 };
 #endif // MAINWINDOW_H

@@ -37,7 +37,8 @@ void MainWindow::on_pushButton_clicked()
 
     qDebug() << "id of data type: " << id_data_type;
     qDebug() << "id of tree type: " << id_tree_type;
-//    qDebug() << group.checkedButton();
+    data_type = DataType(id_data_type);
+    tree_type = TreeType(id_tree_type);
 
     if(id_tree_type >= 0) {
         ui->stackedWidget->setCurrentIndex(1);
@@ -56,42 +57,83 @@ void MainWindow::on_action_to_start_page_triggered()
 }
 
 /*
-    id_data_type:
+    data_type:
     0 - int
     1 - string
     2 - double
     3 - char
 
-    id_tree_type:
+    tree_type:
     0 - SplayTree
     1 - BTree
     2 - BplusTree
 */
-//template<template <typename T> typename TreeType, typename DataType>
-//BalancedTreeContext<TreeType, DataType> create_tree(int id_data_type, int id_tree_type) {
-//    switch (id_data_type) {
-//    case 0:
-//        switch (id_tree_type) {
-//        case 0:
-//            SplayTree<int> tree_int;
-//            BalancedTreeContext<SplayTree, int> context_int(std::make_shared<SplayTree<int>>(tree));
-//            return context_int;
 
-//        case 1:
-//            SplayTree<std::string> tree_string;
-//            BalancedTreeContext<SplayTree, std::string> context_string(std::make_shared<SplayTree<std::string>>(tree_string));
-//            return context_string;
+//template<template <typename T> typename Type, typename Data>
+void* create_tree(DataType data_type, TreeType tree_type, int min_degree) {
+    if(tree_type == TreeType::Splay) {
 
-//        case 2:
-//            SplayTree<double> tree_double;
-//            BalancedTreeContext<SplayTree, std::string> context_double(std::make_shared<SplayTree<std::string>>(tree_double));
-//            return context_double;
+        if(data_type == DataType::Int) {
+            SplayTree<int> tree;
+            BalancedTreeContext<SplayTree, int> context(std::make_shared<SplayTree<int>>(tree));
+            return context;
+        } else
+        if(data_type == DataType::String) {
+            SplayTree<std::string> tree;
+            BalancedTreeContext<SplayTree, std::string> context(std::make_shared<SplayTree<std::string>>(tree));
+            return context;
+        } else
+        if(data_type == DataType::Double) {
+            SplayTree<double> tree;
+            BalancedTreeContext<SplayTree, double> context(std::make_shared<SplayTree<double>>(tree));
+            return context;
+        }
+        if(data_type == DataType::Char) {
+            SplayTree<char> tree;
+            BalancedTreeContext<SplayTree, char> context(std::make_shared<SplayTree<char>>(tree));
+            return context;
+        }
 
+    } else
 
-//        case 3:
-//            SplayTree<char> tree_char;
-//            BalancedTreeContext<SplayTree, std::string> context_char(std::make_shared<SplayTree<std::string>>(tree_char));
-//            return context_char;
-
+    if(tree_type == TreeType::B) {
+        if(data_type == DataType::Int) {
+            BalancedTreeContext<BTree, int> context(std::make_shared<BTree<int>>(min_degree));
+            return context;
+        } else
+        if(data_type == DataType::String) {
+            BalancedTreeContext<BTree, std::string> context(std::make_shared<BTree<std::string>>(min_degree));
+            return context;
+        } else
+        if(data_type == DataType::Double) {
+            BalancedTreeContext<BTree, double> context(std::make_shared<BTree<double>>(min_degree));
+            return context;
+        }
+        if(data_type == DataType::Char) {
+            BTree<char> tree(min_degree);
+            BalancedTreeContext<BTree, char> context(std::make_shared<BTree<char>>(min_degree));
+            return context;
+        }
+    }
+//    else
+//
+//    if(tree_type == TreeType::Bplus) {
+//        if(data_type == DataType::Int) {
+//            BalancedTreeContext<BplusTree, int> context(std::make_shared<BplusTree<int>>(min_degree));
+//            return context;
+//        } else
+//        if(data_type == DataType::String) {
+//            BalancedTreeContext<BplusTree, std::string> context(std::make_shared<BplusTree<std::string>>(min_degree));
+//            return context;
+//        } else
+//        if(data_type == DataType::Double) {
+//            BalancedTreeContext<BplusTree, double> context(std::make_shared<BplusTree<double>>(min_degree));
+//            return context;
+//        }
+//        if(data_type == DataType::Char) {
+//            BTree<char> tree(min_degree);
+//            BalancedTreeContext<BplusTree, char> context(std::make_shared<BplusTree<char>>(min_degree));
+//            return context;
+//        }
 //    }
-//}
+}
